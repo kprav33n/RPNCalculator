@@ -8,9 +8,17 @@
 
 #import <Foundation/Foundation.h>
 
+typedef enum {
+    IZAdd,
+    IZSubtract,
+    IZDivide,
+    IZMultiply,
+} IZBinaryOperation;
+
 @interface IZCalculatorBrain : NSObject
 
 - (double)lastOperand;
 - (void)pushOperand:(double)operand;
+- (void)performBinaryOperation:(IZBinaryOperation)operation;
 
 @end

@@ -45,4 +45,98 @@
     STAssertEquals([self.brain lastOperand], 9., nil);
 }
 
+- (void)testAdd
+{
+    [self.brain pushOperand:9];
+    [self.brain pushOperand:3];
+    [self.brain performBinaryOperation:IZAdd];
+    STAssertEquals([self.brain lastOperand], 12., nil);
+}
+
+- (void)testAddWithNoOperandIsNoop
+{
+    [self.brain performBinaryOperation:IZAdd];
+    STAssertEquals([self.brain lastOperand], 0., nil);
+}
+
+- (void)testAddWithOneOperandIsNoop
+{
+    [self.brain pushOperand:8];
+    [self.brain performBinaryOperation:IZAdd];
+    STAssertEquals([self.brain lastOperand], 8., nil);
+}
+
+- (void)testSubtract
+{
+    [self.brain pushOperand:9];
+    [self.brain pushOperand:3];
+    [self.brain performBinaryOperation:IZSubtract];
+    STAssertEquals([self.brain lastOperand], 6., nil);
+}
+
+- (void)testSubtractWithNoOperandIsNoop
+{
+    [self.brain performBinaryOperation:IZSubtract];
+    STAssertEquals([self.brain lastOperand], 0., nil);
+}
+
+- (void)testSubtractWithOneOperandIsNoop
+{
+    [self.brain pushOperand:8];
+    [self.brain performBinaryOperation:IZSubtract];
+    STAssertEquals([self.brain lastOperand], 8., nil);
+}
+
+- (void)testDivide
+{
+    [self.brain pushOperand:9];
+    [self.brain pushOperand:2];
+    [self.brain performBinaryOperation:IZDivide];
+    STAssertEquals([self.brain lastOperand], 4.5, nil);
+}
+
+- (void)testDivideWithNoOperandIsNoop
+{
+    [self.brain performBinaryOperation:IZDivide];
+    STAssertEquals([self.brain lastOperand], 0., nil);
+}
+
+- (void)testDivideWithOneOperandIsNoop
+{
+    [self.brain pushOperand:8];
+    [self.brain performBinaryOperation:IZDivide];
+    STAssertEquals([self.brain lastOperand], 8., nil);
+}
+
+- (void)testMultiply
+{
+    [self.brain pushOperand:9];
+    [self.brain pushOperand:3];
+    [self.brain performBinaryOperation:IZMultiply];
+    STAssertEquals([self.brain lastOperand], 27., nil);
+}
+
+- (void)testMultiplyWithNoOperandIsNoop
+{
+    [self.brain performBinaryOperation:IZMultiply];
+    STAssertEquals([self.brain lastOperand], 0., nil);
+}
+
+- (void)testMultiplyWithOneOperandIsNoop
+{
+    [self.brain pushOperand:8];
+    [self.brain performBinaryOperation:IZMultiply];
+    STAssertEquals([self.brain lastOperand], 8., nil);
+}
+
+- (void)testUnknownBinaryOperation
+{
+    [self.brain pushOperand:9];
+    [self.brain pushOperand:2];
+    [self.brain performBinaryOperation:9];
+    STAssertEquals([self.brain lastOperand], 2., nil);
+    [self.brain performBinaryOperation:IZAdd];
+    STAssertEquals([self.brain lastOperand], 11., nil);
+}
+
 @end

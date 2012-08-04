@@ -34,4 +34,48 @@
     [self.operandStack addObject:[NSNumber numberWithDouble:operand]];
 }
 
+- (void)performBinaryOperation:(IZBinaryOperation)operation
+{
+    if ([self.operandStack count] < 2) {
+        return;
+    }
+
+    double secondOperand = [[self.operandStack lastObject] doubleValue];
+    [self.operandStack removeLastObject];
+    double firstOperand = [[self.operandStack lastObject] doubleValue];
+    [self.operandStack removeLastObject];
+
+    double result = 0;
+    BOOL updateResult = TRUE;
+
+    switch (operation) {
+        case IZAdd:
+            result = firstOperand + secondOperand;
+            break;
+
+        case IZSubtract:
+            result = firstOperand - secondOperand;
+            break;
+
+        case IZDivide:
+            result = firstOperand / secondOperand;
+            break;
+
+        case IZMultiply:
+            result = firstOperand * secondOperand;
+            break;
+
+        default:
+            updateResult = FALSE;
+            break;
+    }
+
+    if (updateResult) {
+        [self.operandStack addObject:[NSNumber numberWithDouble:result]];
+    } else {
+        [self.operandStack addObject:[NSNumber numberWithDouble:firstOperand]];
+        [self.operandStack addObject:[NSNumber numberWithDouble:secondOperand]];
+    }
+}
+
 @end
