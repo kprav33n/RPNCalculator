@@ -20,6 +20,14 @@
 		ACF6459915CDC8080099C745 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACF6457A15CDC8080099C745 /* Foundation.framework */; };
 		ACF645A115CDC8080099C745 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = ACF6459F15CDC8080099C745 /* InfoPlist.strings */; };
 		ACF645A415CDC8080099C745 /* RPNCalculatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = ACF645A315CDC8080099C745 /* RPNCalculatorTests.m */; };
+		ACF645B215CDCAC10099C745 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACF6457A15CDC8080099C745 /* Foundation.framework */; };
+		ACF645C015CDCAC10099C745 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACF6459615CDC8080099C745 /* SenTestingKit.framework */; };
+		ACF645C115CDCAC10099C745 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACF6457815CDC8080099C745 /* UIKit.framework */; };
+		ACF645C215CDCAC10099C745 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACF6457A15CDC8080099C745 /* Foundation.framework */; };
+		ACF645C515CDCAC10099C745 /* libRPNCalculatorModel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ACF645B115CDCAC10099C745 /* libRPNCalculatorModel.a */; };
+		ACF645CB15CDCAC10099C745 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = ACF645C915CDCAC10099C745 /* InfoPlist.strings */; };
+		ACF645D715CDCB290099C745 /* IZCalculatorBrain.m in Sources */ = {isa = PBXBuildFile; fileRef = ACF645D615CDCB290099C745 /* IZCalculatorBrain.m */; };
+		ACF645DA15CDCB520099C745 /* IZCalculatorBrainTests.m in Sources */ = {isa = PBXBuildFile; fileRef = ACF645D915CDCB520099C745 /* IZCalculatorBrainTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,7 +38,26 @@
 			remoteGlobalIDString = ACF6457315CDC8080099C745;
 			remoteInfo = RPNCalculator;
 		};
+		ACF645C315CDCAC10099C745 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ACF6456B15CDC8080099C745 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = ACF645B015CDCAC10099C745;
+			remoteInfo = RPNCalculatorModel;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		ACF645AF15CDCAC10099C745 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/${PRODUCT_NAME}";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		ACF6457415CDC8080099C745 /* RPNCalculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RPNCalculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -52,6 +79,15 @@
 		ACF645A015CDC8080099C745 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		ACF645A215CDC8080099C745 /* RPNCalculatorTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RPNCalculatorTests.h; sourceTree = "<group>"; };
 		ACF645A315CDC8080099C745 /* RPNCalculatorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RPNCalculatorTests.m; sourceTree = "<group>"; };
+		ACF645B115CDCAC10099C745 /* libRPNCalculatorModel.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRPNCalculatorModel.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		ACF645B515CDCAC10099C745 /* RPNCalculatorModel-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RPNCalculatorModel-Prefix.pch"; sourceTree = "<group>"; };
+		ACF645BF15CDCAC10099C745 /* RPNCalculatorModelTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RPNCalculatorModelTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		ACF645C815CDCAC10099C745 /* RPNCalculatorModelTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RPNCalculatorModelTests-Info.plist"; sourceTree = "<group>"; };
+		ACF645CA15CDCAC10099C745 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		ACF645D515CDCB290099C745 /* IZCalculatorBrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IZCalculatorBrain.h; sourceTree = "<group>"; };
+		ACF645D615CDCB290099C745 /* IZCalculatorBrain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IZCalculatorBrain.m; sourceTree = "<group>"; };
+		ACF645D815CDCB520099C745 /* IZCalculatorBrainTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IZCalculatorBrainTests.h; sourceTree = "<group>"; };
+		ACF645D915CDCB520099C745 /* IZCalculatorBrainTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IZCalculatorBrainTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +111,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		ACF645AE15CDCAC10099C745 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ACF645B215CDCAC10099C745 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ACF645BB15CDCAC10099C745 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ACF645C015CDCAC10099C745 /* SenTestingKit.framework in Frameworks */,
+				ACF645C115CDCAC10099C745 /* UIKit.framework in Frameworks */,
+				ACF645C215CDCAC10099C745 /* Foundation.framework in Frameworks */,
+				ACF645C515CDCAC10099C745 /* libRPNCalculatorModel.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -83,6 +138,8 @@
 			children = (
 				ACF6457E15CDC8080099C745 /* RPNCalculator */,
 				ACF6459C15CDC8080099C745 /* RPNCalculatorTests */,
+				ACF645B315CDCAC10099C745 /* RPNCalculatorModel */,
+				ACF645C615CDCAC10099C745 /* RPNCalculatorModelTests */,
 				ACF6457715CDC8080099C745 /* Frameworks */,
 				ACF6457515CDC8080099C745 /* Products */,
 			);
@@ -93,6 +150,8 @@
 			children = (
 				ACF6457415CDC8080099C745 /* RPNCalculator.app */,
 				ACF6459515CDC8080099C745 /* RPNCalculatorTests.octest */,
+				ACF645B115CDCAC10099C745 /* libRPNCalculatorModel.a */,
+				ACF645BF15CDCAC10099C745 /* RPNCalculatorModelTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -151,6 +210,43 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		ACF645B315CDCAC10099C745 /* RPNCalculatorModel */ = {
+			isa = PBXGroup;
+			children = (
+				ACF645B415CDCAC10099C745 /* Supporting Files */,
+				ACF645D515CDCB290099C745 /* IZCalculatorBrain.h */,
+				ACF645D615CDCB290099C745 /* IZCalculatorBrain.m */,
+			);
+			path = RPNCalculatorModel;
+			sourceTree = "<group>";
+		};
+		ACF645B415CDCAC10099C745 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				ACF645B515CDCAC10099C745 /* RPNCalculatorModel-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		ACF645C615CDCAC10099C745 /* RPNCalculatorModelTests */ = {
+			isa = PBXGroup;
+			children = (
+				ACF645C715CDCAC10099C745 /* Supporting Files */,
+				ACF645D815CDCB520099C745 /* IZCalculatorBrainTests.h */,
+				ACF645D915CDCB520099C745 /* IZCalculatorBrainTests.m */,
+			);
+			path = RPNCalculatorModelTests;
+			sourceTree = "<group>";
+		};
+		ACF645C715CDCAC10099C745 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				ACF645C815CDCAC10099C745 /* RPNCalculatorModelTests-Info.plist */,
+				ACF645C915CDCAC10099C745 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -190,6 +286,42 @@
 			productReference = ACF6459515CDC8080099C745 /* RPNCalculatorTests.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
+		ACF645B015CDCAC10099C745 /* RPNCalculatorModel */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ACF645CF15CDCAC10099C745 /* Build configuration list for PBXNativeTarget "RPNCalculatorModel" */;
+			buildPhases = (
+				ACF645AD15CDCAC10099C745 /* Sources */,
+				ACF645AE15CDCAC10099C745 /* Frameworks */,
+				ACF645AF15CDCAC10099C745 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RPNCalculatorModel;
+			productName = RPNCalculatorModel;
+			productReference = ACF645B115CDCAC10099C745 /* libRPNCalculatorModel.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		ACF645BE15CDCAC10099C745 /* RPNCalculatorModelTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ACF645D215CDCAC10099C745 /* Build configuration list for PBXNativeTarget "RPNCalculatorModelTests" */;
+			buildPhases = (
+				ACF645BA15CDCAC10099C745 /* Sources */,
+				ACF645BB15CDCAC10099C745 /* Frameworks */,
+				ACF645BC15CDCAC10099C745 /* Resources */,
+				ACF645BD15CDCAC10099C745 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				ACF645C415CDCAC10099C745 /* PBXTargetDependency */,
+			);
+			name = RPNCalculatorModelTests;
+			productName = RPNCalculatorModelTests;
+			productReference = ACF645BF15CDCAC10099C745 /* RPNCalculatorModelTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -214,6 +346,8 @@
 			targets = (
 				ACF6457315CDC8080099C745 /* RPNCalculator */,
 				ACF6459415CDC8080099C745 /* RPNCalculatorTests */,
+				ACF645B015CDCAC10099C745 /* RPNCalculatorModel */,
+				ACF645BE15CDCAC10099C745 /* RPNCalculatorModelTests */,
 			);
 		};
 /* End PBXProject section */
@@ -236,10 +370,31 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		ACF645BC15CDCAC10099C745 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ACF645CB15CDCAC10099C745 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
 		ACF6459315CDC8080099C745 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+		ACF645BD15CDCAC10099C745 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -273,6 +428,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		ACF645AD15CDCAC10099C745 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ACF645D715CDCB290099C745 /* IZCalculatorBrain.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ACF645BA15CDCAC10099C745 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ACF645DA15CDCB520099C745 /* IZCalculatorBrainTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -280,6 +451,11 @@
 			isa = PBXTargetDependency;
 			target = ACF6457315CDC8080099C745 /* RPNCalculator */;
 			targetProxy = ACF6459A15CDC8080099C745 /* PBXContainerItemProxy */;
+		};
+		ACF645C415CDCAC10099C745 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = ACF645B015CDCAC10099C745 /* RPNCalculatorModel */;
+			targetProxy = ACF645C315CDCAC10099C745 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -304,6 +480,14 @@
 			isa = PBXVariantGroup;
 			children = (
 				ACF645A015CDC8080099C745 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		ACF645C915CDCAC10099C745 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				ACF645CA15CDCAC10099C745 /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -416,6 +600,60 @@
 			};
 			name = Release;
 		};
+		ACF645D015CDCAC10099C745 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/RPNCalculatorModel.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "RPNCalculatorModel/RPNCalculatorModel-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		ACF645D115CDCAC10099C745 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/RPNCalculatorModel.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "RPNCalculatorModel/RPNCalculatorModel-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		ACF645D315CDCAC10099C745 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "RPNCalculatorModel/RPNCalculatorModel-Prefix.pch";
+				INFOPLIST_FILE = "RPNCalculatorModelTests/RPNCalculatorModelTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		ACF645D415CDCAC10099C745 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "RPNCalculatorModel/RPNCalculatorModel-Prefix.pch";
+				INFOPLIST_FILE = "RPNCalculatorModelTests/RPNCalculatorModelTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -441,6 +679,22 @@
 			buildConfigurations = (
 				ACF645AB15CDC8080099C745 /* Debug */,
 				ACF645AC15CDC8080099C745 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		ACF645CF15CDCAC10099C745 /* Build configuration list for PBXNativeTarget "RPNCalculatorModel" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ACF645D015CDCAC10099C745 /* Debug */,
+				ACF645D115CDCAC10099C745 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		ACF645D215CDCAC10099C745 /* Build configuration list for PBXNativeTarget "RPNCalculatorModelTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ACF645D315CDCAC10099C745 /* Debug */,
+				ACF645D415CDCAC10099C745 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};
