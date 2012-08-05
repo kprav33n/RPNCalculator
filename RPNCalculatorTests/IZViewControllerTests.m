@@ -11,9 +11,7 @@
 #import "IZAppDelegate.h"
 #import "IZViewController.h"
 
-@interface IZViewControllerTests () {
-    UIButton *_digitButtons[10];
-}
+@interface IZViewControllerTests ()
 
 @property (weak, nonatomic, readonly) IZViewController *controller;
 
@@ -23,28 +21,27 @@
 
 @synthesize controller = _controller;
 
-// Tests begin here.
-
-- (void)setUp
-{
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard"
-                                                         bundle:nil];
-    _controller = [storyboard instantiateViewControllerWithIdentifier:@"CalculatorViewController"];
-    [_controller performSelectorOnMainThread:@selector(loadView)
-                                  withObject:nil
-                               waitUntilDone:YES];
-
-    for (int i = 0; i < 10; ++i) {
-        _digitButtons[i] = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        [_digitButtons[i] setTitle:[NSString stringWithFormat:@"%d", i]
-                          forState:UIControlStateNormal];
+- (IZViewController *)controller {
+    if (!_controller) {
+        UIStoryboard *storyboard =
+        [UIStoryboard storyboardWithName:@"MainStoryboard"
+                                  bundle:nil];
+        _controller =
+        [storyboard instantiateViewControllerWithIdentifier:@"CalculatorViewController"];
+        [_controller performSelectorOnMainThread:@selector(loadView)
+                                      withObject:nil
+                                   waitUntilDone:YES];
     }
+    return _controller;
 }
 
-- (void)pressDigit:(int)digit
+// Tests begin here.
+
+- (void)pressDigit:(NSString *)digit
 {
-    STAssertTrue((digit >= 0) && (digit < 10), nil);
-    [self.controller digitPressed:_digitButtons[digit]];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [button setTitle:digit forState:UIControlStateNormal];
+    [self.controller digitPressed:button];
 }
 
 - (void)pressOperator:(NSString *)symbol
@@ -63,62 +60,62 @@
 
 - (void)testDigitPressed
 {
-    [self.controller digitPressed:_digitButtons[4]];
+    [self pressDigit:@"4"];
     STAssertEqualObjects(self.controller.display.text, @"4", nil);
-    [self.controller digitPressed:_digitButtons[3]];
+    [self pressDigit:@"3"];
     STAssertEqualObjects(self.controller.display.text, @"43", nil);
-    [self.controller digitPressed:_digitButtons[2]];
+    [self pressDigit:@"2"];
     STAssertEqualObjects(self.controller.display.text, @"432", nil);
 }
 
 - (void)testIgnoreLeadingZero
 {
-    [self.controller digitPressed:_digitButtons[0]];
+    [self pressDigit:@"0"];
     STAssertEqualObjects(self.controller.display.text, @"0", nil);
-    [self.controller digitPressed:_digitButtons[0]];
+    [self pressDigit:@"0"];
     STAssertEqualObjects(self.controller.display.text, @"0", nil);
 }
 
 - (void)testDivision
 {
-    [self pressDigit:9];
-    [self pressDigit:0];
+    [self pressDigit:@"9"];
+    [self pressDigit:@"0"];
     [self.controller enterPressed];
-    [self pressDigit:2];
-    [self pressDigit:0];
+    [self pressDigit:@"2"];
+    [self pressDigit:@"0"];
     [self pressOperator:@"/"];
     STAssertEqualObjects(self.controller.display.text, @"4.5", nil);
 }
 
 - (void)testMultiplication
 {
-    [self pressDigit:9];
-    [self pressDigit:0];
+    [self pressDigit:@"9"];
+    [self pressDigit:@"0"];
     [self.controller enterPressed];
-    [self pressDigit:2];
-    [self pressDigit:0];
+    [self pressDigit:@"2"];
+    [self pressDigit:@"0"];
     [self pressOperator:@"*"];
     STAssertEqualObjects(self.controller.display.text, @"1800", nil);
 }
 
 - (void)testSubtraction
 {
-    [self pressDigit:8];
-    [self pressDigit:8];
+    [self pressDigit:@"8"];
+    [self pressDigit:@"8"];
     [self.controller enterPressed];
-    [self pressDigit:2];
-    [self pressDigit:1];
+    [self pressDigit:@"2"];
+    [self pressDigit:@"1"];
     [self pressOperator:@"-"];
     STAssertEqualObjects(self.controller.display.text, @"67", nil);
 }
 
 - (void)testAddition
 {
-    [self pressDigit:1];
-    [self pressDigit:8];
+    [self pressDigit:@"1"];
+    [self pressDigit:@"8"];
     [self.controller enterPressed];
-    [self pressDigit:2];
-    [self pressDigit:1];
+    [self pressDigit:@"2"];
+    [self pressDigit:@"1"];
     [self pressOperator:@"+"];
     STAssertEqualObjects(self.controller.display.text, @"39", nil);
 }
