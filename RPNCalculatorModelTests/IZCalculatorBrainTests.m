@@ -166,4 +166,14 @@
     STAssertEqualsWithAccuracy([self.brain lastOperand], 3.14159, 0.001, nil);
 }
 
+- (void)testClear
+{
+    [self.brain pushOperand:12];
+    [self.brain pushOperand:9];
+    [self.brain pushOperand:2];
+    STAssertEquals([self.brain operandsCount], 3U, nil);
+    [self.brain clear];
+    STAssertEquals([self.brain operandsCount], 0U, nil);
+}
+
 @end

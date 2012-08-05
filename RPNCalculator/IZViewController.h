@@ -18,5 +18,6 @@
 - (IBAction)enterPressed;
 - (IBAction)operatorPressed:(UIButton *)sender;
 - (IBAction)decimalPressed;
+- (IBAction)clearPressed;
 
 @end

@@ -88,8 +88,10 @@
     }
 }
 
-- (void)viewDidUnload {
-    [self setOperationsDisplay:nil];
-    [super viewDidUnload];
+- (IBAction)clearPressed {
+    [self.brain clear];
+    self.display.text = [NSString stringWithFormat:@"%g", [self.brain lastOperand]];
+    self.operationsDisplay.text = @"";
 }
+
 @end

@@ -32,5 +32,9 @@ typedef enum {
 - (void)performNullaryOperation:(IZNullaryOperation)operation;
 - (void)performUnaryOperation:(IZUnaryOperation)operation;
 - (void)performBinaryOperation:(IZBinaryOperation)operation;
+- (void)clear;
+
+// These exist for unit testing only.
+- (NSUInteger)operandsCount;
 
 @end

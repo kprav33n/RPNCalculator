@@ -204,4 +204,16 @@
     STAssertEqualObjects(self.controller.operationsDisplay.text, @"6.3 5 + 2 * ", nil);
 }
 
+- (void)testClear
+{
+    [self pressDigit:@"2"];
+    [self.controller enterPressed];
+    [self pressDigit:@"5"];
+    [self.controller enterPressed];
+    [self pressDigit:@"8"];
+    [self.controller clearPressed];
+    STAssertEqualObjects(self.controller.display.text, @"0", nil);
+    STAssertEqualObjects(self.controller.operationsDisplay.text, @"", nil);
+}
+
 @end

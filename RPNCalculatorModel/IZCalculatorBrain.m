@@ -109,4 +109,14 @@
     }
 }
 
+- (void)clear
+{
+    [self.operandStack removeAllObjects];
+}
+
+- (NSUInteger)operandsCount
+{
+    return [self.operandStack count];
+}
+
 @end
