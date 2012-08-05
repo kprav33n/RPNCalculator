@@ -11,6 +11,7 @@
 @interface IZViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UILabel *display;
+@property (weak, nonatomic) IBOutlet UILabel *operationsDisplay;
 
 // These actions are declared in the interface for unit testing.
 - (IBAction)digitPressed:(UIButton *)sender;

@@ -35,8 +35,6 @@
     return _controller;
 }
 
-// Tests begin here.
-
 - (void)pressDigit:(NSString *)digit
 {
     UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -51,11 +49,14 @@
     [self.controller operatorPressed:button];
 }
 
+// Tests begin here.
+
 - (void)testInitialization
 {
     STAssertNotNil(self.controller, nil);
     STAssertNotNil(self.controller.display, nil);
     STAssertEqualObjects(self.controller.display.text, @"0", nil);
+    STAssertEqualObjects(self.controller.operationsDisplay.text, @"", nil);
 }
 
 - (void)testDigitPressed
@@ -188,6 +189,19 @@
     [self pressOperator:@"*"];
     [self pressOperator:@"+"];
     STAssertEqualsWithAccuracy([self.controller.display.text doubleValue], 12.5664, 0.001, nil);
+}
+
+- (void)testOperationsDisplay
+{
+    [self pressDigit:@"6"];
+    [self.controller decimalPressed];
+    [self pressDigit:@"3"];
+    [self.controller enterPressed];
+    [self pressDigit:@"5"];
+    [self pressOperator:@"+"];
+    [self pressDigit:@"2"];
+    [self pressOperator:@"*"];
+    STAssertEqualObjects(self.controller.operationsDisplay.text, @"6.3 5 + 2 * ", nil);
 }
 
 @end

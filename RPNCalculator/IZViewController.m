@@ -20,6 +20,7 @@
 @implementation IZViewController
 
 @synthesize display = _display;
+@synthesize operationsDisplay = _operationDisplay;
 @synthesize brain = _brain;
 @synthesize isInTheMiddleOfUserInput = _isInTheMiddleOfUserInput;
 
@@ -44,6 +45,8 @@
     [self.brain pushOperand:[self.display.text doubleValue]];
     self.isInTheMiddleOfUserInput = FALSE;
     self.isFloatingPointNumber = FALSE;
+    self.operationsDisplay.text = [[self.operationsDisplay.text stringByAppendingString:self.display.text]
+                                   stringByAppendingString:@" "];
 }
 
 - (IBAction)operatorPressed:(UIButton *)sender {
@@ -68,6 +71,8 @@
         [self.brain performNullaryOperation:IZPi];
     }
     self.display.text = [NSString stringWithFormat:@"%g", [self.brain lastOperand]];
+    self.operationsDisplay.text = [[self.operationsDisplay.text stringByAppendingString:sender.currentTitle]
+                                   stringByAppendingString:@" "];
 }
 
 - (IBAction)decimalPressed {
@@ -83,4 +88,8 @@
     }
 }
 
+- (void)viewDidUnload {
+    [self setOperationsDisplay:nil];
+    [super viewDidUnload];
+}
 @end
