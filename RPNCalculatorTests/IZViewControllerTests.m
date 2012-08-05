@@ -141,4 +141,53 @@
     STAssertEqualObjects(self.controller.display.text, @"5.641", nil);
 }
 
+- (void)testSin
+{
+    [self pressDigit:@"9"];
+    [self pressDigit:@"0"];
+    [self pressOperator:@"sin"];
+    STAssertEqualsWithAccuracy([self.controller.display.text doubleValue], 0.893997, 0.001, nil);
+}
+
+- (void)testCos
+{
+    [self pressDigit:@"9"];
+    [self pressDigit:@"0"];
+    [self pressOperator:@"cos"];
+    STAssertEqualsWithAccuracy([self.controller.display.text doubleValue], -0.4480736161, 0.001, nil);
+}
+
+- (void)testSqrt
+{
+    [self pressDigit:@"2"];
+    [self pressOperator:@"sqrt"];
+    STAssertEqualsWithAccuracy([self.controller.display.text doubleValue], 1.414213562, 0.001, nil);
+}
+
+- (void)testPi1
+{
+    [self pressDigit:@"3"];
+    [self pressOperator:@"π"];
+    [self pressOperator:@"*"];
+    STAssertEqualsWithAccuracy([self.controller.display.text doubleValue], 9.42478, 0.001, nil);
+}
+
+- (void)testPi2
+{
+    [self pressOperator:@"π"];
+    [self pressDigit:@"3"];
+    [self pressOperator:@"*"];
+    STAssertEqualsWithAccuracy([self.controller.display.text doubleValue], 9.42478, 0.001, nil);
+}
+
+- (void)testPi3
+{
+    [self pressOperator:@"π"];
+    [self.controller enterPressed];
+    [self pressDigit:@"3"];
+    [self pressOperator:@"*"];
+    [self pressOperator:@"+"];
+    STAssertEqualsWithAccuracy([self.controller.display.text doubleValue], 12.5664, 0.001, nil);
+}
+
 @end

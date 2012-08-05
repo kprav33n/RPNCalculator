@@ -58,6 +58,14 @@
         [self.brain performBinaryOperation:IZSubtract];
     } else if ([sender.currentTitle isEqualToString:@"+"]) {
         [self.brain performBinaryOperation:IZAdd];
+    } else if ([sender.currentTitle isEqualToString:@"sin"]) {
+        [self.brain performUnaryOperation:IZSin];
+    } else if ([sender.currentTitle isEqualToString:@"cos"]) {
+        [self.brain performUnaryOperation:IZCos];
+    } else if ([sender.currentTitle isEqualToString:@"sqrt"]) {
+        [self.brain performUnaryOperation:IZSqrt];
+    } else if ([sender.currentTitle isEqualToString:@"π"]) {
+        [self.brain performNullaryOperation:IZPi];
     }
     self.display.text = [NSString stringWithFormat:@"%g", [self.brain lastOperand]];
 }

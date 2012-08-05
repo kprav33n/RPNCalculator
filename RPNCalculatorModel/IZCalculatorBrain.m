@@ -34,6 +34,37 @@
     [self.operandStack addObject:[NSNumber numberWithDouble:operand]];
 }
 
+- (void)performNullaryOperation:(IZNullaryOperation)operation
+{
+    [self.operandStack addObject:[NSNumber numberWithDouble:M_PI]];
+}
+
+- (void)performUnaryOperation:(IZUnaryOperation)operation
+{
+    double operand = [[self.operandStack lastObject] doubleValue];
+    [self.operandStack removeLastObject];
+
+    double result = 0;
+    switch (operation) {
+        case IZSin:
+            result = sin(operand);
+            break;
+
+        case IZCos:
+            result = cos(operand);
+            break;
+
+        case IZSqrt:
+            result = sqrt(operand);
+            break;
+
+        default:
+            break;
+    }
+
+    [self.operandStack addObject:[NSNumber numberWithDouble:result]];
+}
+
 - (void)performBinaryOperation:(IZBinaryOperation)operation
 {
     if ([self.operandStack count] < 2) {

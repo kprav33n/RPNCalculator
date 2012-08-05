@@ -139,4 +139,31 @@
     STAssertEquals([self.brain lastOperand], 11., nil);
 }
 
+- (void)testSin
+{
+    [self.brain pushOperand:90];
+    [self.brain performUnaryOperation:IZSin];
+    STAssertEqualsWithAccuracy([self.brain lastOperand], 0.893997, 0.001, nil);
+}
+
+- (void)testCos
+{
+    [self.brain pushOperand:90];
+    [self.brain performUnaryOperation:IZCos];
+    STAssertEqualsWithAccuracy([self.brain lastOperand], -0.4480736161, 0.001, nil);
+}
+
+- (void)testSqrt
+{
+    [self.brain pushOperand:2];
+    [self.brain performUnaryOperation:IZSqrt];
+    STAssertEqualsWithAccuracy([self.brain lastOperand], 1.414213562, 0.001, nil);
+}
+
+- (void)testPi
+{
+    [self.brain performNullaryOperation:IZPi];
+    STAssertEqualsWithAccuracy([self.brain lastOperand], 3.14159, 0.001, nil);
+}
+
 @end

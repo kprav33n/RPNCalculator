@@ -9,6 +9,16 @@
 #import <Foundation/Foundation.h>
 
 typedef enum {
+    IZPi,
+} IZNullaryOperation;
+
+typedef enum {
+    IZSin,
+    IZCos,
+    IZSqrt,
+} IZUnaryOperation;
+
+typedef enum {
     IZAdd,
     IZSubtract,
     IZDivide,
@@ -19,6 +29,8 @@ typedef enum {
 
 - (double)lastOperand;
 - (void)pushOperand:(double)operand;
+- (void)performNullaryOperation:(IZNullaryOperation)operation;
+- (void)performUnaryOperation:(IZUnaryOperation)operation;
 - (void)performBinaryOperation:(IZBinaryOperation)operation;
 
 @end
