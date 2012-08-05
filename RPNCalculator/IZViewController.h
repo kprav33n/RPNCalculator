@@ -10,4 +10,10 @@
 
 @interface IZViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UILabel *display;
+
+- (IBAction)digitPressed:(UIButton *)sender;
+- (IBAction)enterPressed;
+- (IBAction)operatorPressed:(UIButton *)sender;
+
 @end

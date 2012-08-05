@@ -19,7 +19,6 @@
 		ACF6459815CDC8080099C745 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACF6457815CDC8080099C745 /* UIKit.framework */; };
 		ACF6459915CDC8080099C745 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACF6457A15CDC8080099C745 /* Foundation.framework */; };
 		ACF645A115CDC8080099C745 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = ACF6459F15CDC8080099C745 /* InfoPlist.strings */; };
-		ACF645A415CDC8080099C745 /* RPNCalculatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = ACF645A315CDC8080099C745 /* RPNCalculatorTests.m */; };
 		ACF645B215CDCAC10099C745 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACF6457A15CDC8080099C745 /* Foundation.framework */; };
 		ACF645C015CDCAC10099C745 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACF6459615CDC8080099C745 /* SenTestingKit.framework */; };
 		ACF645C115CDCAC10099C745 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACF6457815CDC8080099C745 /* UIKit.framework */; };
@@ -28,6 +27,8 @@
 		ACF645CB15CDCAC10099C745 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = ACF645C915CDCAC10099C745 /* InfoPlist.strings */; };
 		ACF645D715CDCB290099C745 /* IZCalculatorBrain.m in Sources */ = {isa = PBXBuildFile; fileRef = ACF645D615CDCB290099C745 /* IZCalculatorBrain.m */; };
 		ACF645DA15CDCB520099C745 /* IZCalculatorBrainTests.m in Sources */ = {isa = PBXBuildFile; fileRef = ACF645D915CDCB520099C745 /* IZCalculatorBrainTests.m */; };
+		ACF645E115CDE79D0099C745 /* IZViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = ACF645E015CDE79D0099C745 /* IZViewControllerTests.m */; };
+		ACF645E215CE61AE0099C745 /* libRPNCalculatorModel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ACF645B115CDCAC10099C745 /* libRPNCalculatorModel.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,8 +78,6 @@
 		ACF6459615CDC8080099C745 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		ACF6459E15CDC8080099C745 /* RPNCalculatorTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RPNCalculatorTests-Info.plist"; sourceTree = "<group>"; };
 		ACF645A015CDC8080099C745 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		ACF645A215CDC8080099C745 /* RPNCalculatorTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RPNCalculatorTests.h; sourceTree = "<group>"; };
-		ACF645A315CDC8080099C745 /* RPNCalculatorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RPNCalculatorTests.m; sourceTree = "<group>"; };
 		ACF645B115CDCAC10099C745 /* libRPNCalculatorModel.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRPNCalculatorModel.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACF645B515CDCAC10099C745 /* RPNCalculatorModel-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RPNCalculatorModel-Prefix.pch"; sourceTree = "<group>"; };
 		ACF645BF15CDCAC10099C745 /* RPNCalculatorModelTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RPNCalculatorModelTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -88,6 +87,8 @@
 		ACF645D615CDCB290099C745 /* IZCalculatorBrain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IZCalculatorBrain.m; sourceTree = "<group>"; };
 		ACF645D815CDCB520099C745 /* IZCalculatorBrainTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IZCalculatorBrainTests.h; sourceTree = "<group>"; };
 		ACF645D915CDCB520099C745 /* IZCalculatorBrainTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IZCalculatorBrainTests.m; sourceTree = "<group>"; };
+		ACF645DF15CDE79D0099C745 /* IZViewControllerTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IZViewControllerTests.h; sourceTree = "<group>"; };
+		ACF645E015CDE79D0099C745 /* IZViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IZViewControllerTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +96,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ACF645E215CE61AE0099C745 /* libRPNCalculatorModel.a in Frameworks */,
 				ACF6457915CDC8080099C745 /* UIKit.framework in Frameworks */,
 				ACF6457B15CDC8080099C745 /* Foundation.framework in Frameworks */,
 				ACF6457D15CDC8080099C745 /* CoreGraphics.framework in Frameworks */,
@@ -194,8 +196,8 @@
 		ACF6459C15CDC8080099C745 /* RPNCalculatorTests */ = {
 			isa = PBXGroup;
 			children = (
-				ACF645A215CDC8080099C745 /* RPNCalculatorTests.h */,
-				ACF645A315CDC8080099C745 /* RPNCalculatorTests.m */,
+				ACF645DF15CDE79D0099C745 /* IZViewControllerTests.h */,
+				ACF645E015CDE79D0099C745 /* IZViewControllerTests.m */,
 				ACF6459D15CDC8080099C745 /* Supporting Files */,
 			);
 			path = RPNCalculatorTests;
@@ -231,9 +233,9 @@
 		ACF645C615CDCAC10099C745 /* RPNCalculatorModelTests */ = {
 			isa = PBXGroup;
 			children = (
-				ACF645C715CDCAC10099C745 /* Supporting Files */,
 				ACF645D815CDCB520099C745 /* IZCalculatorBrainTests.h */,
 				ACF645D915CDCB520099C745 /* IZCalculatorBrainTests.m */,
+				ACF645C715CDCAC10099C745 /* Supporting Files */,
 			);
 			path = RPNCalculatorModelTests;
 			sourceTree = "<group>";
@@ -424,7 +426,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ACF645A415CDC8080099C745 /* RPNCalculatorTests.m in Sources */,
+				ACF645E115CDE79D0099C745 /* IZViewControllerTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
