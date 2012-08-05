@@ -12,8 +12,10 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *display;
 
+// These actions are declared in the interface for unit testing.
 - (IBAction)digitPressed:(UIButton *)sender;
 - (IBAction)enterPressed;
 - (IBAction)operatorPressed:(UIButton *)sender;
+- (IBAction)decimalPressed;
 
 @end

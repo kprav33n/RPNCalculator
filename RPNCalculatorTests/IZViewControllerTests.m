@@ -120,4 +120,25 @@
     STAssertEqualObjects(self.controller.display.text, @"39", nil);
 }
 
+- (void)testDecimalInput
+{
+    [self pressDigit:@"3"];
+    [self.controller decimalPressed];
+    [self pressDigit:@"1"];
+    [self.controller decimalPressed];
+    [self pressDigit:@"4"];
+    [self.controller decimalPressed];
+    [self pressDigit:@"1"];
+    STAssertEqualObjects(self.controller.display.text, @"3.141", nil);
+    [self.controller enterPressed];
+    [self pressDigit:@"2"];
+    [self pressOperator:@"+"];
+    STAssertEqualObjects(self.controller.display.text, @"5.141", nil);
+    [self.controller decimalPressed];
+    [self pressDigit:@"5"];
+    STAssertEqualObjects(self.controller.display.text, @".5", nil);
+    [self pressOperator:@"+"];
+    STAssertEqualObjects(self.controller.display.text, @"5.641", nil);
+}
+
 @end

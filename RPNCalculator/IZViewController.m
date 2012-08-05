@@ -13,6 +13,7 @@
 
 @property (strong, nonatomic, readonly) IZCalculatorBrain *brain;
 @property (nonatomic) BOOL isInTheMiddleOfUserInput;
+@property (nonatomic) BOOL isFloatingPointNumber;
 
 @end
 
@@ -42,6 +43,7 @@
 - (IBAction)enterPressed {
     [self.brain pushOperand:[self.display.text doubleValue]];
     self.isInTheMiddleOfUserInput = FALSE;
+    self.isFloatingPointNumber = FALSE;
 }
 
 - (IBAction)operatorPressed:(UIButton *)sender {
@@ -58,6 +60,19 @@
         [self.brain performBinaryOperation:IZAdd];
     }
     self.display.text = [NSString stringWithFormat:@"%g", [self.brain lastOperand]];
+}
+
+- (IBAction)decimalPressed {
+    if (self.isFloatingPointNumber) {
+        return;
+    }
+    self.isFloatingPointNumber = TRUE;
+    if (self.isInTheMiddleOfUserInput) {
+        self.display.text = [self.display.text stringByAppendingString:@"."];
+    } else {
+        self.display.text = @".";
+        self.isInTheMiddleOfUserInput = TRUE;
+    }
 }
 
 @end
