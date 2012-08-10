@@ -67,10 +67,6 @@
 
 - (void)performBinaryOperation:(IZBinaryOperation)operation
 {
-    if ([self.operandStack count] < 2) {
-        return;
-    }
-
     double secondOperand = [[self.operandStack lastObject] doubleValue];
     [self.operandStack removeLastObject];
     double firstOperand = [[self.operandStack lastObject] doubleValue];
