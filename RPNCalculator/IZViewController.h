@@ -19,5 +19,6 @@
 - (IBAction)operatorPressed:(UIButton *)sender;
 - (IBAction)decimalPressed;
 - (IBAction)clearPressed;
+- (IBAction)deletePressed;
 
 @end

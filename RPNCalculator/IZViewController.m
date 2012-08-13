@@ -13,7 +13,6 @@
 
 @property (strong, nonatomic, readonly) IZCalculatorBrain *brain;
 @property (nonatomic) BOOL isInTheMiddleOfUserInput;
-@property (nonatomic) BOOL isFloatingPointNumber;
 
 @end
 
@@ -45,7 +44,6 @@
 - (IBAction)enterPressed {
     [self.brain pushOperand:[self.display.text doubleValue]];
     self.isInTheMiddleOfUserInput = NO;
-    self.isFloatingPointNumber = NO;
     self.operationsDisplay.text = [[self.operationsDisplay.text stringByAppendingString:self.display.text]
                                    stringByAppendingString:@" "];
 }
@@ -60,12 +58,10 @@
 }
 
 - (IBAction)decimalPressed {
-    if (self.isFloatingPointNumber) {
-        return;
-    }
-    self.isFloatingPointNumber = YES;
     if (self.isInTheMiddleOfUserInput) {
-        self.display.text = [self.display.text stringByAppendingString:@"."];
+        if ([self.display.text rangeOfString:@"."].location == NSNotFound) {
+            self.display.text = [self.display.text stringByAppendingString:@"."];
+        }
     } else {
         self.display.text = @".";
         self.isInTheMiddleOfUserInput = YES;
@@ -76,6 +72,19 @@
     [self.brain clear];
     self.display.text = @"0";
     self.operationsDisplay.text = @"";
+}
+
+- (IBAction)deletePressed {
+    if (!self.isInTheMiddleOfUserInput) {
+        return;
+    }
+
+    if (self.display.text.length == 1) {
+        self.display.text = @"0";
+        self.isInTheMiddleOfUserInput = NO;
+    } else {
+        self.display.text = [self.display.text substringToIndex:self.display.text.length - 1];
+    }
 }
 
 @end

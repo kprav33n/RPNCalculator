@@ -221,4 +221,58 @@
     STAssertEqualObjects(self.controller.operationsDisplay.text, @"", nil);
 }
 
+- (void)testDelete
+{
+    [self pressDigit:@"9"];
+    [self pressDigit:@"3"];
+    [self.controller deletePressed];
+    STAssertEqualObjects(self.controller.display.text, @"9", nil);
+    [self.controller deletePressed];
+    STAssertEqualObjects(self.controller.display.text, @"0", nil);
+    [self.controller deletePressed];
+    STAssertEqualObjects(self.controller.display.text, @"0", nil);
+    [self pressDigit:@"3"];
+    STAssertEqualObjects(self.controller.display.text, @"3", nil);
+}
+
+- (void)testDeleteInFloatingPointNumber
+{
+    [self pressDigit:@"2"];
+    [self.controller decimalPressed];
+    [self pressDigit:@"0"];
+    [self pressDigit:@"9"];
+    [self.controller deletePressed];
+    STAssertEqualObjects(self.controller.display.text, @"2.0", nil);
+    [self.controller decimalPressed];
+    STAssertEqualObjects(self.controller.display.text, @"2.0", nil);
+    [self.controller deletePressed];
+    [self.controller deletePressed];
+    STAssertEqualObjects(self.controller.display.text, @"2", nil);
+    [self.controller decimalPressed];
+    STAssertEqualObjects(self.controller.display.text, @"2.", nil);
+    [self pressDigit:@"9"];
+    STAssertEqualObjects(self.controller.display.text, @"2.9", nil);
+}
+
+// Note sure if this is a desired behavior.
+- (void)testDeleteAfterEnter
+{
+    [self pressDigit:@"3"];
+    [self pressDigit:@"2"];
+    [self.controller enterPressed];
+    [self.controller deletePressed];
+    STAssertEqualObjects(self.controller.display.text, @"32", nil);
+}
+
+// Note sure if this is a desired behavior.
+- (void)testDeleteAfterOperation
+{
+    [self pressDigit:@"3"];
+    [self.controller enterPressed];
+    [self pressDigit:@"2"];
+    [self pressOperator:@"+"];
+    [self.controller deletePressed];
+    STAssertEqualObjects(self.controller.display.text, @"5", nil);
+}
+
 @end
