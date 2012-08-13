@@ -20,5 +20,6 @@
 - (IBAction)decimalPressed;
 - (IBAction)clearPressed;
 - (IBAction)deletePressed;
+- (IBAction)signChangePressed:(UIButton *)sender;
 
 @end

@@ -148,6 +148,14 @@
     STAssertEqualsWithAccuracy([self.brain performOperation:@"π"], 3.14159, 0.001, nil);
 }
 
+- (void)testSignChange
+{
+    [self.brain pushOperand:3];
+    [self.brain performOperation:@"+/-"];
+    [self.brain pushOperand:2];
+    STAssertEquals([self.brain performOperation:@"*"], -6., nil);
+}
+
 - (void)testMultipleOperations
 {
     [self.brain pushOperand:3];

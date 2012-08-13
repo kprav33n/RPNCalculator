@@ -49,6 +49,13 @@
     [self.controller operatorPressed:button];
 }
 
+- (void)pressSignChange
+{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [button setTitle:@"+/-" forState:UIControlStateNormal];
+    [self.controller signChangePressed:button];
+}
+
 // Tests begin here.
 
 - (void)testInitialization
@@ -279,6 +286,35 @@
     [self pressOperator:@"+"];
     [self.controller deletePressed];
     STAssertEqualObjects(self.controller.display.text, @"5", nil);
+}
+
+
+- (void)testSignChangeDuringInput
+{
+    [self pressDigit:@"4"];
+    [self pressSignChange];
+    STAssertEqualObjects(self.controller.display.text, @"-4", nil);
+    [self pressSignChange];
+    STAssertEqualObjects(self.controller.display.text, @"4", nil);
+    [self pressDigit:@"3"];
+    STAssertEqualObjects(self.controller.display.text, @"43", nil);
+    [self pressSignChange];
+    STAssertEqualObjects(self.controller.display.text, @"-43", nil);
+    [self pressDigit:@"2"];
+    STAssertEqualObjects(self.controller.display.text, @"-432", nil);
+}
+
+- (void)testSignChangeAfterOperation
+{
+    [self pressDigit:@"3"];
+    [self.controller enterPressed];
+    [self pressDigit:@"4"];
+    [self pressOperator:@"*"];
+    [self pressSignChange];
+    STAssertEqualObjects(self.controller.display.text, @"-12", nil);
+    [self pressDigit:@"4"];
+    [self pressOperator:@"+"];
+    STAssertEqualObjects(self.controller.display.text, @"-8", nil);
 }
 
 @end

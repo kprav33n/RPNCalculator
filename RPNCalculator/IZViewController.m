@@ -101,4 +101,16 @@
     }
 }
 
+- (IBAction)signChangePressed:(UIButton *)sender {
+    if (self.isInTheMiddleOfUserInput) {
+        if ([self.display.text characterAtIndex:0] == '-') {
+            self.display.text = [self.display.text substringFromIndex:1];
+        } else {
+            self.display.text = [@"-" stringByAppendingString:self.display.text];
+        }
+    } else {
+        [self operatorPressed:sender];
+    }
+}
+
 @end
