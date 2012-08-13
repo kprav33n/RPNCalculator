@@ -13,6 +13,7 @@
 
 @property (strong, nonatomic, readonly) IZCalculatorBrain *brain;
 @property (nonatomic) BOOL isInTheMiddleOfUserInput;
+@property (strong, nonatomic) NSString *userInputHistory;
 
 @end
 
@@ -22,6 +23,7 @@
 @synthesize operationsDisplay = _operationDisplay;
 @synthesize brain = _brain;
 @synthesize isInTheMiddleOfUserInput = _isInTheMiddleOfUserInput;
+@synthesize userInputHistory = _userInputHistory;
 
 - (IZCalculatorBrain *)brain
 {
@@ -29,6 +31,14 @@
         _brain = [[IZCalculatorBrain alloc] init];
     }
     return _brain;
+}
+
+- (NSString *)userInputHistory
+{
+    if (!_userInputHistory)  {
+        _userInputHistory = @"";
+    }
+    return _userInputHistory;
 }
 
 - (IBAction)digitPressed:(UIButton *)sender {
@@ -44,8 +54,9 @@
 - (IBAction)enterPressed {
     [self.brain pushOperand:[self.display.text doubleValue]];
     self.isInTheMiddleOfUserInput = NO;
-    self.operationsDisplay.text = [[self.operationsDisplay.text stringByAppendingString:self.display.text]
-                                   stringByAppendingString:@" "];
+    self.userInputHistory = [self.userInputHistory stringByAppendingString:
+                             [self.display.text stringByAppendingString:@" "]];
+    self.operationsDisplay.text = self.userInputHistory;
 }
 
 - (IBAction)operatorPressed:(UIButton *)sender {
@@ -53,8 +64,9 @@
         [self enterPressed];
     }
     self.display.text = [NSString stringWithFormat:@"%g", [self.brain performOperation:sender.currentTitle]];
-    self.operationsDisplay.text = [[self.operationsDisplay.text stringByAppendingString:sender.currentTitle]
-                                   stringByAppendingString:@" "];
+    self.userInputHistory = [self.userInputHistory stringByAppendingString:
+                             [sender.currentTitle stringByAppendingString:@" "]];
+    self.operationsDisplay.text = [self.userInputHistory stringByAppendingString:@"="];
 }
 
 - (IBAction)decimalPressed {
@@ -71,7 +83,9 @@
 - (IBAction)clearPressed {
     [self.brain clear];
     self.display.text = @"0";
-    self.operationsDisplay.text = @"";
+    self.userInputHistory = @"";
+    self.operationsDisplay.text = self.userInputHistory;
+    self.isInTheMiddleOfUserInput = NO;
 }
 
 - (IBAction)deletePressed {

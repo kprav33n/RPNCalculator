@@ -202,11 +202,13 @@
     [self.controller decimalPressed];
     [self pressDigit:@"3"];
     [self.controller enterPressed];
+    STAssertEqualObjects(self.controller.operationsDisplay.text, @"6.3 ", nil);
     [self pressDigit:@"5"];
     [self pressOperator:@"+"];
+    STAssertEqualObjects(self.controller.operationsDisplay.text, @"6.3 5 + =", nil);
     [self pressDigit:@"2"];
     [self pressOperator:@"*"];
-    STAssertEqualObjects(self.controller.operationsDisplay.text, @"6.3 5 + 2 * ", nil);
+    STAssertEqualObjects(self.controller.operationsDisplay.text, @"6.3 5 + 2 * =", nil);
 }
 
 - (void)testClear
@@ -219,6 +221,10 @@
     [self.controller clearPressed];
     STAssertEqualObjects(self.controller.display.text, @"0", nil);
     STAssertEqualObjects(self.controller.operationsDisplay.text, @"", nil);
+    [self pressDigit:@"8"];
+    [self.controller enterPressed];
+    STAssertEqualObjects(self.controller.display.text, @"8", nil);
+    STAssertEqualObjects(self.controller.operationsDisplay.text, @"8 ", nil);
 }
 
 - (void)testDelete
