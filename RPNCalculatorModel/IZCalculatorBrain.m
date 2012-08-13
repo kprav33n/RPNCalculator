@@ -61,10 +61,14 @@
         } else {
             result = sqrt(operand);
         }
+    } else if ([operation isEqualToString:@"log"]) {
+        result = log10([self popOperand]);
     } else if ([operation isEqualToString:@"+/-"]) {
         result = -[self popOperand];
     } else if ([operation isEqualToString:@"π"]) {
         result = M_PI;
+    } else if ([operation isEqualToString:@"e"]) {
+        result = M_E;
     } else {
         validOperation = NO;
     }

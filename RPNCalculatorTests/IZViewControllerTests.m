@@ -177,6 +177,14 @@
     STAssertEqualsWithAccuracy([self.controller.display.text doubleValue], 1.414213562, 0.001, nil);
 }
 
+- (void)testLog
+{
+    [self pressDigit:@"1"];
+    [self pressDigit:@"0"];
+    [self pressOperator:@"log"];
+    STAssertEqualsWithAccuracy([self.controller.display.text doubleValue], 1., 0.001, nil);
+}
+
 - (void)testPi1
 {
     [self pressDigit:@"3"];
@@ -201,6 +209,12 @@
     [self pressOperator:@"*"];
     [self pressOperator:@"+"];
     STAssertEqualsWithAccuracy([self.controller.display.text doubleValue], 12.5664, 0.001, nil);
+}
+
+- (void)testE
+{
+    [self pressOperator:@"e"];
+    STAssertEqualsWithAccuracy([self.controller.display.text doubleValue], 2.71828182846, 0.001, nil);
 }
 
 - (void)testOperationsDisplay

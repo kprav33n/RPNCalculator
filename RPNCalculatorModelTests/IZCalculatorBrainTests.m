@@ -143,6 +143,17 @@
     STAssertEquals([self.brain performOperation:@"+"], 9., nil);
 }
 
+- (void)testLog
+{
+    [self.brain pushOperand:10];
+    STAssertEquals([self.brain performOperation:@"log"], 1., nil);
+}
+
+- (void)testE
+{
+    STAssertEqualsWithAccuracy([self.brain performOperation:@"e"], 2.71828182846, 0.001, nil);
+}
+
 - (void)testPi
 {
     STAssertEqualsWithAccuracy([self.brain performOperation:@"π"], 3.14159, 0.001, nil);
