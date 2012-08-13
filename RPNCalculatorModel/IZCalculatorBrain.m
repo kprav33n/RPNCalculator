@@ -41,7 +41,12 @@
         result = [self popOperand] - subtrahend;
     } else if ([operation isEqualToString:@"/"]) {
         double divisor = [self popOperand];
-        result = [self popOperand] / divisor;
+        if (divisor == 0) {
+            validOperation = NO;
+            [self pushOperand:divisor];
+        } else {
+            result = [self popOperand] / divisor;
+        }
     } else if ([operation isEqualToString:@"*"]) {
         result = [self popOperand] * [self popOperand];
     } else if ([operation isEqualToString:@"sin"]) {
@@ -49,7 +54,13 @@
     } else if ([operation isEqualToString:@"cos"]) {
         result = cos([self popOperand]);
     } else if ([operation isEqualToString:@"sqrt"]) {
-        result = sqrt([self popOperand]);
+        double operand = [self popOperand];
+        if (operand < 0) {
+            validOperation = NO;
+            [self pushOperand:operand];
+        } else {
+            result = sqrt(operand);
+        }
     } else if ([operation isEqualToString:@"π"]) {
         result = M_PI;
     } else {

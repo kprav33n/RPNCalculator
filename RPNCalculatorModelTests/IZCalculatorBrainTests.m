@@ -72,13 +72,23 @@
 
 - (void)testDivideWithNoOperand
 {
-    STAssertTrue(isnan([self.brain performOperation:@"/"]), nil);
+    STAssertEquals([self.brain performOperation:@"/"], 0., nil);
 }
 
 - (void)testDivideWithOneOperand
 {
     [self.brain pushOperand:8];
     STAssertEquals([self.brain performOperation:@"/"], 0., nil);
+}
+
+- (void)testDivideByZero
+{
+    [self.brain pushOperand:9];
+    [self.brain pushOperand:0];
+    STAssertEquals([self.brain performOperation:@"/"], 0., nil);
+    [self.brain pushOperand:4];
+    STAssertEquals([self.brain performOperation:@"+"], 4., nil);
+    STAssertEquals([self.brain performOperation:@"*"], 36., nil);
 }
 
 - (void)testMultiply
@@ -123,6 +133,14 @@
 {
     [self.brain pushOperand:2];
     STAssertEqualsWithAccuracy([self.brain performOperation:@"sqrt"], 1.414213562, 0.001, nil);
+}
+
+- (void)testSqrtOfNegativeNumber
+{
+    [self.brain pushOperand:-9];
+    STAssertEquals([self.brain performOperation:@"sqrt"], 0., nil);
+    [self.brain pushOperand:18];
+    STAssertEquals([self.brain performOperation:@"+"], 9., nil);
 }
 
 - (void)testPi
