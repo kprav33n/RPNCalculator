@@ -178,13 +178,4 @@
     STAssertEquals([self.brain performOperation:@"+"], 3.50, nil);
 }
 
-- (void)testClear
-{
-    [self.brain pushOperand:12];
-    [self.brain pushOperand:9];
-    [self.brain pushOperand:2];
-    [self.brain clear];
-    STAssertEquals([self.brain performOperation:@"+"], 0., nil);
-}
-
 @end

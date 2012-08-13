@@ -80,11 +80,6 @@
     return result;
 }
 
-- (void)clear
-{
-    [self.operandStack removeAllObjects];
-}
-
 - (double)popOperand
 {
     NSNumber *operand = [self.operandStack lastObject];

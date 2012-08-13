@@ -11,7 +11,7 @@
 
 @interface IZViewController ()
 
-@property (strong, nonatomic, readonly) IZCalculatorBrain *brain;
+@property (strong, nonatomic) IZCalculatorBrain *brain;
 @property (nonatomic) BOOL isInTheMiddleOfUserInput;
 @property (strong, nonatomic) NSString *userInputHistory;
 
@@ -81,7 +81,7 @@
 }
 
 - (IBAction)clearPressed {
-    [self.brain clear];
+    self.brain = nil;
     self.display.text = @"0";
     self.userInputHistory = @"";
     self.operationsDisplay.text = self.userInputHistory;
