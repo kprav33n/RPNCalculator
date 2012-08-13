@@ -75,6 +75,11 @@
     STAssertEqualObjects(self.controller.display.text, @"0", nil);
     [self pressDigit:@"0"];
     STAssertEqualObjects(self.controller.display.text, @"0", nil);
+    [self pressDigit:@"5"];
+    STAssertEqualObjects(self.controller.display.text, @"5", nil);
+    [self.controller enterPressed];
+    [self pressDigit:@"0"];
+    STAssertEqualObjects(self.controller.display.text, @"0", nil);
 }
 
 - (void)testDivision

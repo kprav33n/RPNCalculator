@@ -35,16 +35,17 @@
 - (IBAction)digitPressed:(UIButton *)sender {
     if (self.isInTheMiddleOfUserInput) {
         self.display.text = [self.display.text stringByAppendingString:sender.currentTitle];
-    } else if (![sender.currentTitle isEqualToString:@"0"]){
+    } else if (!([self.display.text isEqualToString:@"0"] &&
+                 [sender.currentTitle isEqualToString:@"0"])){
         self.display.text = sender.currentTitle;
-        self.isInTheMiddleOfUserInput = TRUE;
+        self.isInTheMiddleOfUserInput = YES;
     }
 }
 
 - (IBAction)enterPressed {
     [self.brain pushOperand:[self.display.text doubleValue]];
-    self.isInTheMiddleOfUserInput = FALSE;
-    self.isFloatingPointNumber = FALSE;
+    self.isInTheMiddleOfUserInput = NO;
+    self.isFloatingPointNumber = NO;
     self.operationsDisplay.text = [[self.operationsDisplay.text stringByAppendingString:self.display.text]
                                    stringByAppendingString:@" "];
 }
@@ -62,12 +63,12 @@
     if (self.isFloatingPointNumber) {
         return;
     }
-    self.isFloatingPointNumber = TRUE;
+    self.isFloatingPointNumber = YES;
     if (self.isInTheMiddleOfUserInput) {
         self.display.text = [self.display.text stringByAppendingString:@"."];
     } else {
         self.display.text = @".";
-        self.isInTheMiddleOfUserInput = TRUE;
+        self.isInTheMiddleOfUserInput = YES;
     }
 }
 
