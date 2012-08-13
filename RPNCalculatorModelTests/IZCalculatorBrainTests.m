@@ -86,9 +86,6 @@
     [self.brain pushOperand:9];
     [self.brain pushOperand:0];
     STAssertEquals([self.brain performOperation:@"/"], 0., nil);
-    [self.brain pushOperand:4];
-    STAssertEquals([self.brain performOperation:@"+"], 4., nil);
-    STAssertEquals([self.brain performOperation:@"*"], 36., nil);
 }
 
 - (void)testMultiply
@@ -114,7 +111,6 @@
     [self.brain pushOperand:9];
     [self.brain pushOperand:2];
     STAssertEquals([self.brain performOperation:@"Unknown"], 0., nil);
-    STAssertEquals([self.brain performOperation:@"+"], 11., nil);
 }
 
 - (void)testSin
@@ -139,8 +135,6 @@
 {
     [self.brain pushOperand:-9];
     STAssertEquals([self.brain performOperation:@"sqrt"], 0., nil);
-    [self.brain pushOperand:18];
-    STAssertEquals([self.brain performOperation:@"+"], 9., nil);
 }
 
 - (void)testLog
@@ -176,6 +170,25 @@
     STAssertEquals([self.brain performOperation:@"/"], 0.25, nil);
     STAssertEquals([self.brain performOperation:@"*"], 0.50, nil);
     STAssertEquals([self.brain performOperation:@"+"], 3.50, nil);
+}
+
+- (void)testProgram
+{
+    id program = [self.brain program];
+    STAssertNotNil(program, nil);
+    STAssertTrue([program isKindOfClass:[NSArray class]], nil);
+}
+
+- (void)testProgramOperandsAndOperator
+{
+    [self.brain pushOperand:34];
+    [self.brain pushOperand:55];
+    STAssertEquals([self.brain performOperation:@"+"], 89., nil);
+    NSArray *program = (NSArray *)[self.brain program];
+    STAssertEquals([program count], 3U, nil);
+    STAssertEqualObjects([program objectAtIndex:0], [NSNumber numberWithDouble:34], nil);
+    STAssertEqualObjects([program objectAtIndex:1], [NSNumber numberWithDouble:55], nil);
+    STAssertEqualObjects([program objectAtIndex:2], @"+", nil);
 }
 
 @end
