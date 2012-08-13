@@ -53,24 +53,7 @@
     if (self.isInTheMiddleOfUserInput) {
         [self enterPressed];
     }
-    if ([sender.currentTitle isEqualToString:@"/"]) {
-        [self.brain performBinaryOperation:IZDivide];
-    } else if ([sender.currentTitle isEqualToString:@"*"]) {
-        [self.brain performBinaryOperation:IZMultiply];
-    } else if ([sender.currentTitle isEqualToString:@"-"]) {
-        [self.brain performBinaryOperation:IZSubtract];
-    } else if ([sender.currentTitle isEqualToString:@"+"]) {
-        [self.brain performBinaryOperation:IZAdd];
-    } else if ([sender.currentTitle isEqualToString:@"sin"]) {
-        [self.brain performUnaryOperation:IZSin];
-    } else if ([sender.currentTitle isEqualToString:@"cos"]) {
-        [self.brain performUnaryOperation:IZCos];
-    } else if ([sender.currentTitle isEqualToString:@"sqrt"]) {
-        [self.brain performUnaryOperation:IZSqrt];
-    } else if ([sender.currentTitle isEqualToString:@"π"]) {
-        [self.brain performNullaryOperation:IZPi];
-    }
-    self.display.text = [NSString stringWithFormat:@"%g", [self.brain lastOperand]];
+    self.display.text = [NSString stringWithFormat:@"%g", [self.brain performOperation:sender.currentTitle]];
     self.operationsDisplay.text = [[self.operationsDisplay.text stringByAppendingString:sender.currentTitle]
                                    stringByAppendingString:@" "];
 }
@@ -90,7 +73,7 @@
 
 - (IBAction)clearPressed {
     [self.brain clear];
-    self.display.text = [NSString stringWithFormat:@"%g", [self.brain lastOperand]];
+    self.display.text = @"0";
     self.operationsDisplay.text = @"";
 }
 

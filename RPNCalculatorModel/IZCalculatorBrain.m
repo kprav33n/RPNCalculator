@@ -24,85 +24,43 @@
     return _operandStack;
 }
 
-- (double)lastOperand
-{
-    return [[self.operandStack lastObject] doubleValue];
-}
-
 - (void)pushOperand:(double)operand
 {
     [self.operandStack addObject:[NSNumber numberWithDouble:operand]];
 }
 
-- (void)performNullaryOperation:(IZNullaryOperation)operation
+- (double)performOperation:(NSString *)operation
 {
-    [self.operandStack addObject:[NSNumber numberWithDouble:M_PI]];
-}
-
-- (void)performUnaryOperation:(IZUnaryOperation)operation
-{
-    double operand = [[self.operandStack lastObject] doubleValue];
-    [self.operandStack removeLastObject];
-
     double result = 0;
-    switch (operation) {
-        case IZSin:
-            result = sin(operand);
-            break;
+    BOOL validOperation = YES;
 
-        case IZCos:
-            result = cos(operand);
-            break;
-
-        case IZSqrt:
-            result = sqrt(operand);
-            break;
-
-        default:
-            break;
-    }
-
-    [self.operandStack addObject:[NSNumber numberWithDouble:result]];
-}
-
-- (void)performBinaryOperation:(IZBinaryOperation)operation
-{
-    double secondOperand = [[self.operandStack lastObject] doubleValue];
-    [self.operandStack removeLastObject];
-    double firstOperand = [[self.operandStack lastObject] doubleValue];
-    [self.operandStack removeLastObject];
-
-    double result = 0;
-    BOOL updateResult = TRUE;
-
-    switch (operation) {
-        case IZAdd:
-            result = firstOperand + secondOperand;
-            break;
-
-        case IZSubtract:
-            result = firstOperand - secondOperand;
-            break;
-
-        case IZDivide:
-            result = firstOperand / secondOperand;
-            break;
-
-        case IZMultiply:
-            result = firstOperand * secondOperand;
-            break;
-
-        default:
-            updateResult = FALSE;
-            break;
-    }
-
-    if (updateResult) {
-        [self.operandStack addObject:[NSNumber numberWithDouble:result]];
+    if ([operation isEqualToString:@"+"]) {
+        result = [self popOperand] + [self popOperand];
+    } else if ([operation isEqualToString:@"-"]) {
+        double subtrahend = [self popOperand];
+        result = [self popOperand] - subtrahend;
+    } else if ([operation isEqualToString:@"/"]) {
+        double divisor = [self popOperand];
+        result = [self popOperand] / divisor;
+    } else if ([operation isEqualToString:@"*"]) {
+        result = [self popOperand] * [self popOperand];
+    } else if ([operation isEqualToString:@"sin"]) {
+        result = sin([self popOperand]);
+    } else if ([operation isEqualToString:@"cos"]) {
+        result = cos([self popOperand]);
+    } else if ([operation isEqualToString:@"sqrt"]) {
+        result = sqrt([self popOperand]);
+    } else if ([operation isEqualToString:@"π"]) {
+        result = M_PI;
     } else {
-        [self.operandStack addObject:[NSNumber numberWithDouble:firstOperand]];
-        [self.operandStack addObject:[NSNumber numberWithDouble:secondOperand]];
+        validOperation = NO;
     }
+
+    if (validOperation) {
+        [self pushOperand:result];
+    }
+
+    return result;
 }
 
 - (void)clear
@@ -110,9 +68,13 @@
     [self.operandStack removeAllObjects];
 }
 
-- (NSUInteger)operandsCount
+- (double)popOperand
 {
-    return [self.operandStack count];
+    NSNumber *operand = [self.operandStack lastObject];
+    if (operand) {
+        [self.operandStack removeLastObject];
+    }
+    return [operand doubleValue];
 }
 
 @end

@@ -356,20 +356,6 @@
             <point key="canvasLocation" x="285" y="127"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="IZViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/IZViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="clearPressed"/>
-                <relationship kind="action" name="decimalPressed"/>
-                <relationship kind="action" name="digitPressed:" candidateClass="UIButton"/>
-                <relationship kind="action" name="enterPressed"/>
-                <relationship kind="action" name="operatorPressed:" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="display" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="operationsDisplay" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
