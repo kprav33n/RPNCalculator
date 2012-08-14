@@ -13,6 +13,7 @@
 
 @property (strong, nonatomic) IZCalculatorBrain *brain;
 @property (nonatomic) BOOL isInTheMiddleOfUserInput;
+@property (strong, nonatomic) NSDictionary *variableValues;
 
 @end
 
@@ -20,8 +21,10 @@
 
 @synthesize display = _display;
 @synthesize operationsDisplay = _operationDisplay;
+@synthesize variablesDisplay = _variablesDisplay;
 @synthesize brain = _brain;
 @synthesize isInTheMiddleOfUserInput = _isInTheMiddleOfUserInput;
+@synthesize variableValues = _variableValues;
 
 - (IZCalculatorBrain *)brain
 {
@@ -29,6 +32,14 @@
         _brain = [[IZCalculatorBrain alloc] init];
     }
     return _brain;
+}
+
+- (NSDictionary *)variableValues
+{
+    if (!_variableValues) {
+        _variableValues = [[NSDictionary alloc] init];
+    }
+    return _variableValues;
 }
 
 - (IBAction)digitPressed:(UIButton *)sender {
@@ -44,15 +55,16 @@
 - (IBAction)enterPressed {
     [self.brain pushOperand:[self.display.text doubleValue]];
     self.isInTheMiddleOfUserInput = NO;
-    [self updateProgramDescription];
+    [self updateOperationsDisplay];
 }
 
 - (IBAction)operatorPressed:(UIButton *)sender {
     if (self.isInTheMiddleOfUserInput) {
         [self enterPressed];
     }
-    self.display.text = [NSString stringWithFormat:@"%g", [self.brain performOperation:sender.currentTitle]];
-    [self updateProgramDescription];
+    [self.brain performOperation:sender.currentTitle];
+    [self updateDisplay];
+    [self updateOperationsDisplay];
 }
 
 - (IBAction)decimalPressed {
@@ -68,9 +80,9 @@
 
 - (IBAction)clearPressed {
     self.brain = nil;
-    self.display.text = @"0";
-    self.isInTheMiddleOfUserInput = NO;
-    [self updateProgramDescription];
+    [self clearDisplay];
+    [self updateOperationsDisplay];
+    [self updateVariablesDisplay];
 }
 
 - (IBAction)deletePressed {
@@ -98,9 +110,67 @@
     }
 }
 
-- (void)updateProgramDescription
+- (IBAction)variablePressed:(UIButton *)sender {
+    if (self.isInTheMiddleOfUserInput) {
+        [self enterPressed];
+    }
+    [self.brain pushVariable:sender.currentTitle];
+    self.display.text = sender.currentTitle;
+    [self updateOperationsDisplay];
+    [self updateVariablesDisplay];
+}
+
+- (IBAction)testPressed:(UIButton *)sender {
+    if ([sender.currentTitle isEqualToString:@"Test 1"]) {
+        self.variableValues = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithDouble:10], @"x",
+                               [NSNumber numberWithDouble:20], @"a", nil];
+    } else if ([sender.currentTitle isEqualToString:@"Test 2"]) {
+        self.variableValues = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithDouble:-4], @"a",
+                               [NSNumber numberWithDouble:3], @"b", nil];
+    } else if ([sender.currentTitle isEqualToString:@"Test 3"]) {
+        self.variableValues = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithDouble:0.5], @"x",
+                               [NSNumber numberWithDouble:3.4], @"b", nil];
+    } else {
+        return;
+    }
+    [self updateDisplay];
+    [self updateVariablesDisplay];
+    [self updateOperationsDisplay];
+}
+
+- (void)clearDisplay
+{
+    self.display.text = @"0";
+    self.isInTheMiddleOfUserInput = NO;
+}
+
+- (void)updateDisplay
+{
+    self.display.text = [NSString stringWithFormat:@"%g",
+                         [IZCalculatorBrain runProgram:[self.brain program]
+                                   usingVariableValues:self.variableValues]];
+}
+
+- (void)updateOperationsDisplay
 {
     self.operationsDisplay.text = [IZCalculatorBrain descriptionOfProgram:[self.brain program]];
+}
+
+- (void)updateVariablesDisplay
+{
+    self.variablesDisplay.text = @"";
+    NSSet *variables = [IZCalculatorBrain variablesUsedInProgram:[self.brain program]];
+    for (id variable in variables) {
+        if ([variable isKindOfClass:[NSString class]]) {
+            NSNumber *value = [self.variableValues valueForKey:variable];
+            if (value) {
+                self.variablesDisplay.text = [self.variablesDisplay.text stringByAppendingFormat:@"%@: %g ", variable, [value doubleValue]];
+            } else {
+                self.variablesDisplay.text = [self.variablesDisplay.text stringByAppendingFormat:@"%@: undefined ", variable];
+
+            }
+        }
+    }
 }
 
 @end

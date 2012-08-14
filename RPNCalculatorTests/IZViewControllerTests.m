@@ -49,11 +49,25 @@
     [self.controller operatorPressed:button];
 }
 
+- (void)pressVariable:(NSString *)symbol
+{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [button setTitle:symbol forState:UIControlStateNormal];
+    [self.controller variablePressed:button];
+}
+
 - (void)pressSignChange
 {
     UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [button setTitle:@"+/-" forState:UIControlStateNormal];
     [self.controller signChangePressed:button];
+}
+
+- (void)pressTest:(NSString *)name
+{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [button setTitle:name forState:UIControlStateNormal];
+    [self.controller testPressed:button];
 }
 
 // Tests begin here.
@@ -329,6 +343,41 @@
     [self pressDigit:@"4"];
     [self pressOperator:@"+"];
     STAssertEqualObjects(self.controller.display.text, @"-8", nil);
+}
+
+- (void)testVariable
+{
+    [self pressVariable:@"x"];
+    STAssertEqualObjects(self.controller.display.text, @"x", nil);
+    STAssertEqualObjects(self.controller.variablesDisplay.text, @"x: undefined ", nil);
+    [self pressDigit:@"2"];
+    STAssertEqualObjects(self.controller.display.text, @"2", nil);
+    [self pressVariable:@"a"];
+    STAssertEqualObjects(self.controller.display.text, @"a", nil);
+    STAssertEqualObjects(self.controller.variablesDisplay.text, @"x: undefined a: undefined ", nil);
+    [self pressOperator:@"+"];
+    [self pressOperator:@"*"];
+    STAssertEqualObjects(self.controller.operationsDisplay.text, @"x * (2 + a)", nil);
+    STAssertEqualObjects(self.controller.variablesDisplay.text, @"x: undefined a: undefined ", nil);
+
+    [self pressTest:@"Test 1"];
+    STAssertEqualObjects(self.controller.variablesDisplay.text, @"x: 10 a: 20 ", nil);
+    STAssertEqualObjects(self.controller.operationsDisplay.text, @"x * (2 + a)", nil);
+    STAssertEqualObjects(self.controller.display.text, @"220", nil);
+
+    [self pressVariable:@"b"];
+    [self pressOperator:@"+"];
+    STAssertEqualObjects(self.controller.display.text, @"220", nil);
+
+    [self pressTest:@"Test 2"];
+    STAssertEqualObjects(self.controller.variablesDisplay.text, @"x: undefined a: -4 b: 3 ", nil);
+    STAssertEqualObjects(self.controller.operationsDisplay.text, @"x * (2 + a) + b", nil);
+    STAssertEqualObjects(self.controller.display.text, @"3", nil);
+
+    [self pressTest:@"Test 3"];
+    STAssertEqualObjects(self.controller.variablesDisplay.text, @"x: 0.5 a: undefined b: 3.4 ", nil);
+    STAssertEqualObjects(self.controller.operationsDisplay.text, @"x * (2 + a) + b", nil);
+    STAssertEqualObjects(self.controller.display.text, @"4.4", nil);
 }
 
 @end
