@@ -13,7 +13,6 @@
 
 @property (strong, nonatomic) IZCalculatorBrain *brain;
 @property (nonatomic) BOOL isInTheMiddleOfUserInput;
-@property (strong, nonatomic) NSString *userInputHistory;
 
 @end
 
@@ -23,7 +22,6 @@
 @synthesize operationsDisplay = _operationDisplay;
 @synthesize brain = _brain;
 @synthesize isInTheMiddleOfUserInput = _isInTheMiddleOfUserInput;
-@synthesize userInputHistory = _userInputHistory;
 
 - (IZCalculatorBrain *)brain
 {
@@ -31,14 +29,6 @@
         _brain = [[IZCalculatorBrain alloc] init];
     }
     return _brain;
-}
-
-- (NSString *)userInputHistory
-{
-    if (!_userInputHistory)  {
-        _userInputHistory = @"";
-    }
-    return _userInputHistory;
 }
 
 - (IBAction)digitPressed:(UIButton *)sender {
@@ -54,9 +44,7 @@
 - (IBAction)enterPressed {
     [self.brain pushOperand:[self.display.text doubleValue]];
     self.isInTheMiddleOfUserInput = NO;
-    self.userInputHistory = [self.userInputHistory stringByAppendingString:
-                             [self.display.text stringByAppendingString:@" "]];
-    self.operationsDisplay.text = self.userInputHistory;
+    [self updateProgramDescription];
 }
 
 - (IBAction)operatorPressed:(UIButton *)sender {
@@ -64,9 +52,7 @@
         [self enterPressed];
     }
     self.display.text = [NSString stringWithFormat:@"%g", [self.brain performOperation:sender.currentTitle]];
-    self.userInputHistory = [self.userInputHistory stringByAppendingString:
-                             [sender.currentTitle stringByAppendingString:@" "]];
-    self.operationsDisplay.text = [self.userInputHistory stringByAppendingString:@"="];
+    [self updateProgramDescription];
 }
 
 - (IBAction)decimalPressed {
@@ -83,9 +69,8 @@
 - (IBAction)clearPressed {
     self.brain = nil;
     self.display.text = @"0";
-    self.userInputHistory = @"";
-    self.operationsDisplay.text = self.userInputHistory;
     self.isInTheMiddleOfUserInput = NO;
+    [self updateProgramDescription];
 }
 
 - (IBAction)deletePressed {
@@ -111,6 +96,11 @@
     } else {
         [self operatorPressed:sender];
     }
+}
+
+- (void)updateProgramDescription
+{
+    self.operationsDisplay.text = [IZCalculatorBrain descriptionOfProgram:[self.brain program]];
 }
 
 @end

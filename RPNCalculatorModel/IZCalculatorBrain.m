@@ -49,13 +49,9 @@
         stack = [program mutableCopy];
     }
     NSMutableSet *set = [[NSMutableSet alloc] init];
-    NSSet *operatorSet = [NSSet setWithObjects:
-                          @"+", @"-", @"*", @"/",
-                          @"sin", @"cos", @"sqrt", @"log",
-                          @"+/-", @"π", @"e", nil];
     for (id item in stack) {
         if ([item isKindOfClass:[NSString class]] &&
-            ![operatorSet containsObject:item]) {
+            ![self isOperator:item]) {
             [set addObject:item];
         }
     }
@@ -64,7 +60,17 @@
 
 + (NSString *)descriptionOfProgram:(id)program
 {
-    return @"";
+    NSMutableArray *stack;
+    if ([program isKindOfClass:[NSArray class]]) {
+        stack = [program mutableCopy];
+    }
+
+    NSString *description = [self descriptionOfStack:stack];
+    if ([stack count] == 0) {
+        return description;
+    } else {
+        return [NSString stringWithFormat:@"%@, %@", description, [self descriptionOfProgram:[stack copy]]];
+    }
 }
 
 - (id)program
@@ -145,6 +151,85 @@
         }
     }
     return result;
+}
+
++ (NSString *)descriptionOfStack:(NSMutableArray *)stack
+{
+    id topOfStack = [stack lastObject];
+    if (topOfStack) {
+        [stack removeLastObject];
+    }
+
+    if ([topOfStack isKindOfClass:[NSNumber class]]) {
+        return [NSString stringWithFormat:@"%g", [topOfStack doubleValue]];
+    } else if ([topOfStack isKindOfClass:[NSString class]]) {
+        NSString *operator = topOfStack;
+        if ([self isNullaryOperator:operator]) {
+            return [NSString stringWithFormat:@"%@", operator];
+        } else if ([self isUnaryOperator:operator]) {
+            NSString *operand = [self descriptionOfStack:stack];
+            return [NSString stringWithFormat:@"%@(%@)", operator, operand];
+        } else if ([self isBinaryOperator:operator]) {
+            NSString *secondOperandFormatString =
+            [self needParenthesisWhenUsingOperator:operator
+                                       withOperand:[stack lastObject]] ? @"(%@)" : @"%@";
+            NSString *secondOperand = [self descriptionOfStack:stack];
+            NSString *firstOperandFormatString =
+            [self needParenthesisWhenUsingOperator:operator
+                                       withOperand:[stack lastObject]] ? @"(%@)" : @"%@";
+            NSString *firstOperand = [self descriptionOfStack:stack];
+            NSString *formatString = [NSString stringWithFormat:@"%@ %%@ %@",
+            firstOperandFormatString, secondOperandFormatString];
+            return [NSString stringWithFormat:formatString, firstOperand, operator, secondOperand];
+        } else {
+            return topOfStack;
+        }
+    }
+    return @"";
+}
+
++ (BOOL)needParenthesisWhenUsingOperator:(NSString *)operator withOperand:(id)operand
+{
+    if ([operator isEqualToString:@"*"] ||
+        [operator isEqualToString:@"/"]) {
+        return ([operand isKindOfClass:[NSString class]] &&
+                ([operand isEqualToString:@"+"] ||
+                 [operand isEqualToString:@"-"]));
+    } else {
+        return NO;
+    }
+}
+
++ (BOOL)isNullaryOperator:(NSString *)operator
+{
+    static NSSet *nullaryOperators = nil;
+    if (!nullaryOperators) {
+        nullaryOperators = [NSSet setWithObjects:@"π", @"e", nil];
+    }
+    return [nullaryOperators containsObject:operator];
+}
+
++ (BOOL)isUnaryOperator:(NSString *)operator
+{
+    NSSet *unaryOperators = nil;
+    if (!unaryOperators) {
+        unaryOperators = [NSSet setWithObjects:@"sin", @"cos", @"sqrt", @"log", @"+/-", nil];
+    }
+    return [unaryOperators containsObject:operator];
+}
+
++ (BOOL)isBinaryOperator:(NSString *)operator
+{
+    NSSet *binaryOperators = nil;
+    if (!binaryOperators) {
+        binaryOperators = [NSSet setWithObjects:@"+", @"-", @"*", @"/", nil];
+    }
+    return [binaryOperators containsObject:operator];
+}
+
++ (BOOL)isOperator:(NSString *)operator
+{
+    return [self isNullaryOperator:operator] || [self isUnaryOperator:operator] || [self isBinaryOperator:operator];
 }
 
 @end

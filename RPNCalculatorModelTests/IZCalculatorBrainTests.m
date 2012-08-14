@@ -193,7 +193,7 @@
 
 - (void)testVariable
 {
-    NSMutableArray *program = [NSArray arrayWithObjects:[NSNumber numberWithDouble:4], @"a", @"b", @"*", @"+", nil];
+    NSArray *program = [NSArray arrayWithObjects:[NSNumber numberWithDouble:4], @"a", @"b", @"*", @"+", nil];
 
     NSSet *variables = [NSSet setWithObjects:@"a", @"b", nil];
     STAssertEqualObjects([IZCalculatorBrain variablesUsedInProgram:program], variables, nil);
@@ -208,6 +208,103 @@
     variableValues = [NSDictionary dictionaryWithObject:[NSNumber numberWithDouble:3] forKey:@"a"];
     STAssertEquals([IZCalculatorBrain runProgram:program
                              usingVariableValues:variableValues], 4., nil);
+}
+
+- (void)testDescriptionOfProgramForNullaryOperators
+{
+    NSArray *program;
+    program = [NSArray arrayWithObject:@"π"];
+    STAssertEqualObjects([IZCalculatorBrain descriptionOfProgram:program], @"π", nil);
+    program = [NSArray arrayWithObject:@"e"];
+    STAssertEqualObjects([IZCalculatorBrain descriptionOfProgram:program], @"e", nil);
+}
+
+- (void)testDescriptionOfProgramForUnaryOperators
+{
+    NSArray *program;
+    program = [NSArray arrayWithObjects:[NSNumber numberWithDouble:2], @"sin", nil];
+    STAssertEqualObjects([IZCalculatorBrain descriptionOfProgram:program], @"sin(2)", nil);
+    program = [NSArray arrayWithObjects:[NSNumber numberWithDouble:2], @"cos", nil];
+    STAssertEqualObjects([IZCalculatorBrain descriptionOfProgram:program], @"cos(2)", nil);
+    program = [NSArray arrayWithObjects:[NSNumber numberWithDouble:2], @"sqrt", nil];
+    STAssertEqualObjects([IZCalculatorBrain descriptionOfProgram:program], @"sqrt(2)", nil);
+    program = [NSArray arrayWithObjects:[NSNumber numberWithDouble:2], @"log", nil];
+    STAssertEqualObjects([IZCalculatorBrain descriptionOfProgram:program], @"log(2)", nil);
+    program = [NSArray arrayWithObjects:[NSNumber numberWithDouble:2], @"+/-", nil];
+    STAssertEqualObjects([IZCalculatorBrain descriptionOfProgram:program], @"+/-(2)", nil);
+}
+
+- (void)testDescriptionOfProgramForBinaryOperators
+{
+    NSArray *program;
+    program = [NSArray arrayWithObjects:[NSNumber numberWithDouble:2], [NSNumber numberWithDouble:4], @"+", nil];
+    STAssertEqualObjects([IZCalculatorBrain descriptionOfProgram:program], @"2 + 4", nil);
+    program = [NSArray arrayWithObjects:[NSNumber numberWithDouble:2], [NSNumber numberWithDouble:4], @"-", nil];
+    STAssertEqualObjects([IZCalculatorBrain descriptionOfProgram:program], @"2 - 4", nil);
+    program = [NSArray arrayWithObjects:[NSNumber numberWithDouble:2], [NSNumber numberWithDouble:4], @"*", nil];
+    STAssertEqualObjects([IZCalculatorBrain descriptionOfProgram:program], @"2 * 4", nil);
+    program = [NSArray arrayWithObjects:[NSNumber numberWithDouble:2], [NSNumber numberWithDouble:4], @"/", nil];
+    STAssertEqualObjects([IZCalculatorBrain descriptionOfProgram:program], @"2 / 4", nil);
+}
+
+- (void)testDescriptionOfProgramForVariables
+{
+    NSArray *program;
+    program = [NSArray arrayWithObjects:@"x", [NSNumber numberWithDouble:4], @"+", nil];
+    STAssertEqualObjects([IZCalculatorBrain descriptionOfProgram:program], @"x + 4", nil);
+}
+
+- (void)testDescriptionOfProgramComplex
+{
+    NSArray *program;
+    program = [NSArray arrayWithObjects:[NSNumber numberWithDouble:3],
+               [NSNumber numberWithDouble:5], [NSNumber numberWithDouble:6],
+               [NSNumber numberWithDouble:7], @"+", @"*", @"-", nil];
+    STAssertEqualObjects([IZCalculatorBrain descriptionOfProgram:program], @"3 - 5 * (6 + 7)", nil);
+
+    program = [NSArray arrayWithObjects:[NSNumber numberWithDouble:3],
+               [NSNumber numberWithDouble:5], [NSNumber numberWithDouble:6],
+               [NSNumber numberWithDouble:7], @"-", @"*", @"-", nil];
+    STAssertEqualObjects([IZCalculatorBrain descriptionOfProgram:program], @"3 - 5 * (6 - 7)", nil);
+
+    program = [NSArray arrayWithObjects:[NSNumber numberWithDouble:3],
+               [NSNumber numberWithDouble:5], [NSNumber numberWithDouble:6],
+               [NSNumber numberWithDouble:7], @"-", @"/", @"-", nil];
+    STAssertEqualObjects([IZCalculatorBrain descriptionOfProgram:program], @"3 - 5 / (6 - 7)", nil);
+
+    program = [NSArray arrayWithObjects:[NSNumber numberWithDouble:3],
+               [NSNumber numberWithDouble:5], @"+", @"sqrt", nil];
+    STAssertEqualObjects([IZCalculatorBrain descriptionOfProgram:program], @"sqrt(3 + 5)", nil);
+
+    program = [NSArray arrayWithObjects:[NSNumber numberWithDouble:3], @"sqrt", @"sqrt", nil];
+    STAssertEqualObjects([IZCalculatorBrain descriptionOfProgram:program], @"sqrt(sqrt(3))", nil);
+
+    program = [NSArray arrayWithObjects:[NSNumber numberWithDouble:3], [NSNumber numberWithDouble:5], @"sqrt", @"+", nil];
+    STAssertEqualObjects([IZCalculatorBrain descriptionOfProgram:program], @"3 + sqrt(5)", nil);
+
+    program = [NSArray arrayWithObjects:@"π", @"r", @"r", @"*", @"*", nil];
+    STAssertEqualObjects([IZCalculatorBrain descriptionOfProgram:program], @"π * r * r", nil);
+
+    program = [NSArray arrayWithObjects:@"a", @"a", @"*", @"b", @"b", @"*", @"+", @"sqrt", nil];
+    STAssertEqualObjects([IZCalculatorBrain descriptionOfProgram:program], @"sqrt(a * a + b * b)", nil);
+
+    program = [NSArray arrayWithObjects:[NSNumber numberWithDouble:3], [NSNumber numberWithDouble:5], @"+", [NSNumber numberWithDouble:6], @"*", nil];
+    STAssertEqualObjects([IZCalculatorBrain descriptionOfProgram:program], @"(3 + 5) * 6", nil);
+
+    program = [NSArray arrayWithObjects:[NSNumber numberWithDouble:3], [NSNumber numberWithDouble:5], @"+", [NSNumber numberWithDouble:6], [NSNumber numberWithDouble:2], @"-", @"/", nil];
+    STAssertEqualObjects([IZCalculatorBrain descriptionOfProgram:program], @"(3 + 5) / (6 - 2)", nil);
+}
+
+- (void)testDescriptionOfProgramMultipleStack
+{
+    NSArray *program;
+    program = [NSArray arrayWithObjects:[NSNumber numberWithDouble:3], [NSNumber numberWithDouble:5], nil];
+    STAssertEqualObjects([IZCalculatorBrain descriptionOfProgram:program], @"5, 3", nil);
+
+    program = [NSArray arrayWithObjects:[NSNumber numberWithDouble:3],
+               [NSNumber numberWithDouble:5], @"+", [NSNumber numberWithDouble:6],
+               [NSNumber numberWithDouble:7], @"*", [NSNumber numberWithDouble:9], @"sqrt", nil];
+    STAssertEqualObjects([IZCalculatorBrain descriptionOfProgram:program], @"sqrt(9), 6 * 7, 3 + 5", nil);
 }
 
 @end
