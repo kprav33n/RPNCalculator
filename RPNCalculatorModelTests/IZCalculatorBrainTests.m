@@ -191,4 +191,23 @@
     STAssertEqualObjects([program objectAtIndex:2], @"+", nil);
 }
 
+- (void)testVariable
+{
+    NSMutableArray *program = [NSArray arrayWithObjects:[NSNumber numberWithDouble:4], @"a", @"b", @"*", @"+", nil];
+
+    NSSet *variables = [NSSet setWithObjects:@"a", @"b", nil];
+    STAssertEqualObjects([IZCalculatorBrain variablesUsedInProgram:program], variables, nil);
+
+    NSDictionary *variableValues = [NSDictionary dictionaryWithObjectsAndKeys:
+                                    [NSNumber numberWithDouble:3], @"a",
+                                    [NSNumber numberWithDouble:5], @"b", nil];
+    STAssertEquals([IZCalculatorBrain runProgram:program
+                             usingVariableValues:variableValues], 19., nil);
+
+    // Test undefined variables.
+    variableValues = [NSDictionary dictionaryWithObject:[NSNumber numberWithDouble:3] forKey:@"a"];
+    STAssertEquals([IZCalculatorBrain runProgram:program
+                             usingVariableValues:variableValues], 4., nil);
+}
+
 @end
