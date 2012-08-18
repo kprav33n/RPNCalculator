@@ -24,5 +24,6 @@
 - (IBAction)signChangePressed:(UIButton *)sender;
 - (IBAction)variablePressed:(UIButton *)sender;
 - (IBAction)testPressed:(UIButton *)sender;
+- (IBAction)undoPressed;
 
 @end

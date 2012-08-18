@@ -102,6 +102,11 @@
     return [IZCalculatorBrain runProgram:self.program];
 }
 
+- (void)undo
+{
+    [self.programStack removeLastObject];
+}
+
 + (double)popOperandOffStack:(NSMutableArray *)stack
 {
     double result = 0;

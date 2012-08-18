@@ -138,6 +138,22 @@
     [self updateOperationsDisplay];
 }
 
+- (IBAction)undoPressed {
+    if (self.isInTheMiddleOfUserInput) {
+        if ([self.display.text length] > 1) {
+            self.display.text = [self.display.text substringToIndex:self.display.text.length - 1];
+        } else {
+            [self updateDisplay];
+            self.isInTheMiddleOfUserInput = NO;
+        }
+    } else {
+        [self.brain undo];
+        [self updateDisplay];
+        [self updateOperationsDisplay];
+        [self updateVariablesDisplay];
+    }
+}
+
 - (void)clearDisplay
 {
     self.display.text = @"0";

@@ -307,4 +307,23 @@
     STAssertEqualObjects([IZCalculatorBrain descriptionOfProgram:program], @"sqrt(9), 6 * 7, 3 + 5", nil);
 }
 
+- (void)testUndo
+{
+    [self.brain undo];
+    STAssertEqualObjects([IZCalculatorBrain descriptionOfProgram:self.brain.program], @"", nil);
+    [self.brain pushOperand:909];
+    [self.brain pushOperand:342];
+    [self.brain undo];
+    STAssertEqualObjects([IZCalculatorBrain descriptionOfProgram:self.brain.program], @"909", nil);
+    [self.brain undo];
+    STAssertEqualObjects([IZCalculatorBrain descriptionOfProgram:self.brain.program], @"", nil);
+    [self.brain pushOperand:4];
+    [self.brain pushOperand:3];
+    [self.brain performOperation:@"+"];
+    [self.brain undo];
+    STAssertEqualObjects([IZCalculatorBrain descriptionOfProgram:self.brain.program], @"3, 4", nil);
+    STAssertEquals([self.brain performOperation:@"+"], 7., nil);
+    STAssertEqualObjects([IZCalculatorBrain descriptionOfProgram:self.brain.program], @"4 + 3", nil);
+}
+
 @end

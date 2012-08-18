@@ -380,4 +380,35 @@
     STAssertEqualObjects(self.controller.display.text, @"4.4", nil);
 }
 
+- (void)testUndo
+{
+    [self pressDigit:@"4"];
+    [self pressDigit:@"2"];
+    [self pressDigit:@"."];
+    [self pressDigit:@"9"];
+    [self pressDigit:@"1"];
+    [self.controller undoPressed];
+    STAssertEqualObjects(self.controller.display.text, @"42.9", nil);
+    [self.controller undoPressed];
+    STAssertEqualObjects(self.controller.display.text, @"42.", nil);
+    [self.controller undoPressed];
+    STAssertEqualObjects(self.controller.display.text, @"42", nil);
+    [self.controller enterPressed];
+    [self pressDigit:@"2"];
+    [self.controller undoPressed];
+    STAssertEqualObjects(self.controller.display.text, @"42", nil);
+    [self pressDigit:@"5"];
+    STAssertEqualObjects(self.controller.display.text, @"5", nil);
+    [self pressDigit:@"4"];
+    [self.controller enterPressed];
+    [self.controller undoPressed];
+    STAssertEqualObjects(self.controller.display.text, @"42", nil);
+    STAssertEqualObjects(self.controller.operationsDisplay.text, @"42", nil);
+    [self pressVariable:@"a"];
+    [self.controller undoPressed];
+    STAssertEqualObjects(self.controller.display.text, @"42", nil);
+    STAssertEqualObjects(self.controller.operationsDisplay.text, @"42", nil);
+    STAssertEqualObjects(self.controller.variablesDisplay.text, @"", nil);
+}
+
 @end
