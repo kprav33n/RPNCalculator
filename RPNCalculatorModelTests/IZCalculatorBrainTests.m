@@ -25,140 +25,145 @@
     return _brain;
 }
 
+- (double)doubleValueOfOperation:(NSString *)operation
+{
+    return [[self.brain performOperation:operation] doubleValue];
+}
+
 // Tests begin here.
 
 - (void)testAdd
 {
     [self.brain pushOperand:9];
     [self.brain pushOperand:3];
-    STAssertEquals([self.brain performOperation:@"+"], 12., nil);
+    STAssertEquals([self doubleValueOfOperation:@"+"], 12., nil);
 }
 
 - (void)testAddWithNoOperand
 {
-    STAssertEquals([self.brain performOperation:@"+"], 0., nil);
+    STAssertEquals([self doubleValueOfOperation:@"+"], 0., nil);
 }
 
 - (void)testAddWithOneOperand
 {
     [self.brain pushOperand:8];
-    STAssertEquals([self.brain performOperation:@"+"], 8., nil);
+    STAssertEquals([self doubleValueOfOperation:@"+"], 8., nil);
 }
 
 - (void)testSubtract
 {
     [self.brain pushOperand:9];
     [self.brain pushOperand:3];
-    STAssertEquals([self.brain performOperation:@"-"], 6., nil);
+    STAssertEquals([self doubleValueOfOperation:@"-"], 6., nil);
 }
 
 - (void)testSubtractWithNoOperand
 {
-    STAssertEquals([self.brain performOperation:@"-"], 0., nil);
+    STAssertEquals([self doubleValueOfOperation:@"-"], 0., nil);
 }
 
 - (void)testSubtractWithOneOperand
 {
     [self.brain pushOperand:8];
-    STAssertEquals([self.brain performOperation:@"-"], -8., nil);
+    STAssertEquals([self doubleValueOfOperation:@"-"], -8., nil);
 }
 
 - (void)testDivide
 {
     [self.brain pushOperand:9];
     [self.brain pushOperand:2];
-    STAssertEquals([self.brain performOperation:@"/"], 4.5, nil);
+    STAssertEquals([self doubleValueOfOperation:@"/"], 4.5, nil);
 }
 
 - (void)testDivideWithNoOperand
 {
-    STAssertEquals([self.brain performOperation:@"/"], 0., nil);
+    STAssertEquals([self doubleValueOfOperation:@"/"], 0., nil);
 }
 
 - (void)testDivideWithOneOperand
 {
     [self.brain pushOperand:8];
-    STAssertEquals([self.brain performOperation:@"/"], 0., nil);
+    STAssertEquals([self doubleValueOfOperation:@"/"], 0., nil);
 }
 
 - (void)testDivideByZero
 {
     [self.brain pushOperand:9];
     [self.brain pushOperand:0];
-    STAssertEquals([self.brain performOperation:@"/"], 0., nil);
+    STAssertEqualObjects([self.brain performOperation:@"/"], @"Divide by zero", nil);
 }
 
 - (void)testMultiply
 {
     [self.brain pushOperand:9];
     [self.brain pushOperand:3];
-    STAssertEquals([self.brain performOperation:@"*"], 27., nil);
+    STAssertEquals([self doubleValueOfOperation:@"*"], 27., nil);
 }
 
 - (void)testMultiplyWithNoOperand
 {
-    STAssertEquals([self.brain performOperation:@"*"], 0., nil);
+    STAssertEquals([self doubleValueOfOperation:@"*"], 0., nil);
 }
 
 - (void)testMultiplyWithOneOperand
 {
     [self.brain pushOperand:8];
-    STAssertEquals([self.brain performOperation:@"*"], 0., nil);
+    STAssertEquals([self doubleValueOfOperation:@"*"], 0., nil);
 }
 
 - (void)testUnknownBinaryOperation
 {
     [self.brain pushOperand:9];
     [self.brain pushOperand:2];
-    STAssertEquals([self.brain performOperation:@"Unknown"], 0., nil);
+    STAssertEquals([self doubleValueOfOperation:@"Unknown"], 0., nil);
 }
 
 - (void)testSin
 {
     [self.brain pushOperand:90];
-    STAssertEqualsWithAccuracy([self.brain performOperation:@"sin"], 0.893997, 0.001, nil);
+    STAssertEqualsWithAccuracy([self doubleValueOfOperation:@"sin"], 0.893997, 0.001, nil);
 }
 
 - (void)testCos
 {
     [self.brain pushOperand:90];
-    STAssertEqualsWithAccuracy([self.brain performOperation:@"cos"], -0.4480736161, 0.001, nil);
+    STAssertEqualsWithAccuracy([self doubleValueOfOperation:@"cos"], -0.4480736161, 0.001, nil);
 }
 
 - (void)testSqrt
 {
     [self.brain pushOperand:2];
-    STAssertEqualsWithAccuracy([self.brain performOperation:@"sqrt"], 1.414213562, 0.001, nil);
+    STAssertEqualsWithAccuracy([self doubleValueOfOperation:@"sqrt"], 1.414213562, 0.001, nil);
 }
 
 - (void)testSqrtOfNegativeNumber
 {
     [self.brain pushOperand:-9];
-    STAssertEquals([self.brain performOperation:@"sqrt"], 0., nil);
+    STAssertEqualObjects([self.brain performOperation:@"sqrt"], @"Complex number error", nil);
 }
 
 - (void)testLog
 {
     [self.brain pushOperand:10];
-    STAssertEquals([self.brain performOperation:@"log"], 1., nil);
+    STAssertEquals([self doubleValueOfOperation:@"log"], 1., nil);
 }
 
 - (void)testE
 {
-    STAssertEqualsWithAccuracy([self.brain performOperation:@"e"], 2.71828182846, 0.001, nil);
+    STAssertEqualsWithAccuracy([self doubleValueOfOperation:@"e"], 2.71828182846, 0.001, nil);
 }
 
 - (void)testPi
 {
-    STAssertEqualsWithAccuracy([self.brain performOperation:@"π"], 3.14159, 0.001, nil);
+    STAssertEqualsWithAccuracy([self doubleValueOfOperation:@"π"], 3.14159, 0.001, nil);
 }
 
 - (void)testSignChange
 {
     [self.brain pushOperand:3];
-    [self.brain performOperation:@"+/-"];
+    [self doubleValueOfOperation:@"+/-"];
     [self.brain pushOperand:2];
-    STAssertEquals([self.brain performOperation:@"*"], -6., nil);
+    STAssertEquals([self doubleValueOfOperation:@"*"], -6., nil);
 }
 
 - (void)testMultipleOperations
@@ -167,9 +172,9 @@
     [self.brain pushOperand:2];
     [self.brain pushOperand:1];
     [self.brain pushOperand:4];
-    STAssertEquals([self.brain performOperation:@"/"], 0.25, nil);
-    STAssertEquals([self.brain performOperation:@"*"], 0.50, nil);
-    STAssertEquals([self.brain performOperation:@"+"], 3.50, nil);
+    STAssertEquals([self doubleValueOfOperation:@"/"], 0.25, nil);
+    STAssertEquals([self doubleValueOfOperation:@"*"], 0.50, nil);
+    STAssertEquals([self doubleValueOfOperation:@"+"], 3.50, nil);
 }
 
 - (void)testProgram
@@ -183,7 +188,7 @@
 {
     [self.brain pushOperand:34];
     [self.brain pushOperand:55];
-    STAssertEquals([self.brain performOperation:@"+"], 89., nil);
+    STAssertEquals([self doubleValueOfOperation:@"+"], 89., nil);
     NSArray *program = (NSArray *)[self.brain program];
     STAssertEquals([program count], 3U, nil);
     STAssertEqualObjects([program objectAtIndex:0], [NSNumber numberWithDouble:34], nil);
@@ -201,13 +206,15 @@
     NSDictionary *variableValues = [NSDictionary dictionaryWithObjectsAndKeys:
                                     [NSNumber numberWithDouble:3], @"a",
                                     [NSNumber numberWithDouble:5], @"b", nil];
-    STAssertEquals([IZCalculatorBrain runProgram:program
-                             usingVariableValues:variableValues], 19., nil);
+    double value = [[IZCalculatorBrain runProgram:program
+                              usingVariableValues:variableValues] doubleValue];
+    STAssertEquals(value, 19., nil);
 
     // Test undefined variables.
     variableValues = [NSDictionary dictionaryWithObject:[NSNumber numberWithDouble:3] forKey:@"a"];
-    STAssertEquals([IZCalculatorBrain runProgram:program
-                             usingVariableValues:variableValues], 4., nil);
+    value = [[IZCalculatorBrain runProgram:program
+                       usingVariableValues:variableValues] doubleValue];
+    STAssertEquals(value, 4., nil);
 }
 
 - (void)testDescriptionOfProgramForNullaryOperators
@@ -319,10 +326,10 @@
     STAssertEqualObjects([IZCalculatorBrain descriptionOfProgram:self.brain.program], @"", nil);
     [self.brain pushOperand:4];
     [self.brain pushOperand:3];
-    [self.brain performOperation:@"+"];
+    [self doubleValueOfOperation:@"+"];
     [self.brain undo];
     STAssertEqualObjects([IZCalculatorBrain descriptionOfProgram:self.brain.program], @"3, 4", nil);
-    STAssertEquals([self.brain performOperation:@"+"], 7., nil);
+    STAssertEquals([self doubleValueOfOperation:@"+"], 7., nil);
     STAssertEqualObjects([IZCalculatorBrain descriptionOfProgram:self.brain.program], @"4 + 3", nil);
 }
 

@@ -16,12 +16,12 @@
 
 @synthesize programStack = _programStack;
 
-+ (double)runProgram:(id)program
++ (id)runProgram:(id)program
 {
     return [self runProgram:program usingVariableValues:nil];
 }
 
-+ (double)runProgram:(id)program usingVariableValues:(NSDictionary *)variableValues
++ (id)runProgram:(id)program usingVariableValues:(NSDictionary *)variableValues
 {
     NSMutableArray *stack;
     if ([program isKindOfClass:[NSArray class]]) {
@@ -39,7 +39,12 @@
             [stack replaceObjectAtIndex:i withObject:value];
         }
     }
-    return [self popOperandOffStack:stack];
+    @try {
+        return [NSNumber numberWithDouble:[self popOperandOffStack:stack]];
+    }
+    @catch (NSException *exception) {
+        return [exception reason];
+    }
 }
 
 + (NSSet *)variablesUsedInProgram:(id)program
@@ -96,7 +101,7 @@
     [self.programStack addObject:variable];
 }
 
-- (double)performOperation:(NSString *)operation
+- (id)performOperation:(NSString *)operation
 {
     [self.programStack addObject:operation];
     return [IZCalculatorBrain runProgram:self.program];
@@ -129,6 +134,9 @@
             double divisor = [self popOperandOffStack:stack];
             if (divisor == 0) {
                 [stack addObject:[NSNumber numberWithDouble:divisor]];
+                @throw [NSException exceptionWithName:@"Arithmetic exception"
+                                               reason:@"Divide by zero"
+                                             userInfo:nil];
             } else {
                 result = [self popOperandOffStack:stack] / divisor;
             }
@@ -142,6 +150,9 @@
             double operand = [self popOperandOffStack:stack];
             if (operand < 0) {
                 [stack addObject:[NSNumber numberWithDouble:operand]];
+                @throw [NSException exceptionWithName:@"Arithmetic exception"
+                                               reason:@"Complex number error"
+                                             userInfo:nil];
             } else {
                 result = sqrt(operand);
             }

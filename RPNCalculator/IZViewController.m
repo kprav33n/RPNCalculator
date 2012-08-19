@@ -162,9 +162,13 @@
 
 - (void)updateDisplay
 {
-    self.display.text = [NSString stringWithFormat:@"%g",
-                         [IZCalculatorBrain runProgram:[self.brain program]
-                                   usingVariableValues:self.variableValues]];
+    id result = [IZCalculatorBrain runProgram:[self.brain program]
+                          usingVariableValues:self.variableValues];
+    if ([result isKindOfClass:[NSString class]]) {
+        self.display.text = result;
+    } else {
+        self.display.text = [NSString stringWithFormat:@"%g", [result doubleValue]];
+    }
 }
 
 - (void)updateOperationsDisplay

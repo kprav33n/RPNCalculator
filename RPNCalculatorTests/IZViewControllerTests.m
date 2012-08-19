@@ -114,6 +114,16 @@
     STAssertEqualObjects(self.controller.display.text, @"4.5", nil);
 }
 
+- (void)testDivideByZero
+{
+    [self pressDigit:@"9"];
+    [self pressDigit:@"0"];
+    [self.controller enterPressed];
+    [self pressDigit:@"0"];
+    [self pressOperator:@"/"];
+    STAssertEqualObjects(self.controller.display.text, @"Divide by zero", nil);
+}
+
 - (void)testMultiplication
 {
     [self pressDigit:@"9"];
@@ -189,6 +199,13 @@
     [self pressDigit:@"2"];
     [self pressOperator:@"sqrt"];
     STAssertEqualsWithAccuracy([self.controller.display.text doubleValue], 1.414213562, 0.001, nil);
+}
+
+- (void)testSqrtOfNegative
+{
+    [self pressDigit:@"-2"];
+    [self pressOperator:@"sqrt"];
+    STAssertEqualObjects(self.controller.display.text, @"Complex number error", nil);
 }
 
 - (void)testLog
